@@ -1,26 +1,35 @@
 import { Select } from 'antd'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styles from './Header.module.scss'
+import { useTranslation } from 'react-i18next'
 
 const HeaderLanguage: FC = () => {
-	const [currentLang, setCurrentLang] = useState(
-		localStorage.getItem('lang') || 'ru'
-	)
+	const { t, i18n } = useTranslation()
+	const [currentLang, setCurrentLang] = useState('')
+
 	const onSelectLang = (lang: string) => {
-		localStorage.setItem('lang', lang)
+		i18n.changeLanguage(lang)
+		localStorage.setItem('lang_wsm', lang)
 		setCurrentLang(lang)
 	}
 
+	useEffect(() => {
+		const lang = localStorage.getItem('lang_wsm')
+		if (lang) {
+			setCurrentLang(lang)
+		}
+	}, [])
+
 	return (
 		<label className={styles.language}>
-			Язык
+			{t('language')}
 			<Select
 				value={currentLang}
 				onSelect={e => onSelectLang(e)}
 				style={{ width: '170px' }}
 				options={[
 					{ value: 'ru', label: 'Русский' },
-					{ value: 'kar', label: 'Каракалпакский' },
+					{ value: 'qq', label: 'Каракалпакский' },
 				]}
 			/>
 		</label>

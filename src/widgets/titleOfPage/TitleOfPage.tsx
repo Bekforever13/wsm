@@ -3,8 +3,10 @@ import styles from './TitleOfPage.module.scss'
 import { UiButton } from '@/shared/ui'
 import { TTitleOfPage } from './TitleOfPage.types'
 import { useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
+	const { t } = useTranslation()
 	const { pathname } = useLocation()
 	const handleClickButton = () => {
 		console.log(route)
@@ -14,7 +16,7 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
 		<div className={styles.head}>
 			<h1>{title}</h1>
 			{pathname !== '/' && (
-				<UiButton onClick={handleClickButton}>Добавить</UiButton>
+				<UiButton onClick={handleClickButton}>{t('add')}</UiButton>
 			)}
 		</div>
 	)

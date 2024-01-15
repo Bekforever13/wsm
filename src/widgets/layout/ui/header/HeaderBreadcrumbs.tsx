@@ -2,8 +2,10 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Breadcrumb } from 'antd'
 import { capatilize } from '@/shared/utils/Utils'
+import { useTranslation } from 'react-i18next'
 
 const HeaderBreadCrumbs: React.FC = () => {
+	const { t } = useTranslation()
 	const location = useLocation()
 
 	const { pathname } = location
@@ -13,24 +15,24 @@ const HeaderBreadCrumbs: React.FC = () => {
 		<Breadcrumb
 			items={[
 				{
-					title: <Link to='/'>Главная</Link>,
+					title: <Link to='/'>{t('home')}</Link>,
 				},
 				...pathnames.map((name, index) => {
 					const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`
 					const kiril = () => {
 						switch (capatilize(name)) {
 							case 'Transactions':
-								return 'Транзакции'
+								return t('transactions')
 							case 'Products':
-								return 'Товары'
+								return t('products')
 							case 'Categories':
-								return 'Категории'
+								return t('categories')
 							case 'Brands':
-								return 'Бренды	'
+								return t('brands')
 							case 'Storage':
-								return 'Склад'
+								return t('storage')
 							case 'Users':
-								return 'Пользователи'
+								return t('users')
 							default:
 								return capatilize(name)
 						}

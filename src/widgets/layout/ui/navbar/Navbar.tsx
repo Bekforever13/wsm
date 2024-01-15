@@ -4,13 +4,15 @@ import { UiPopconfirm } from '@/shared/ui/popConfirm/UiPopconfirm'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import { NavbarMenuItems } from './NavbarMenuItems'
+import { useTranslation } from 'react-i18next'
 
 const Navbar: FC = () => {
+	const { t } = useTranslation()
 	const navigate = useNavigate()
 
 	const onConfirmLogout = () => {
 		localStorage.removeItem('token')
-		navigate('/auth')
+		navigate('/login')
 	}
 
 	return (
@@ -21,13 +23,13 @@ const Navbar: FC = () => {
 			<div className={styles.menuItems}>
 				<NavbarMenuItems />
 				<UiPopconfirm
-					title='Вы действительно хотите выйти?'
+					title={t('beforeExit')}
 					onConfirm={onConfirmLogout}
 					className={`${styles.menuItem}`}
 				>
 					<div>
 						<LuListOrdered />
-						Выйти
+						{t('exit')}
 					</div>
 				</UiPopconfirm>
 			</div>

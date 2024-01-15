@@ -6,27 +6,29 @@ import { GrTransaction } from 'react-icons/gr'
 import { AiOutlineHome, AiFillHdd } from 'react-icons/ai'
 import { TbBrandSketch, TbCategory2 } from 'react-icons/tb'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const NavbarMenuItems: FC = () => {
+	const { t } = useTranslation()
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
 	const currentRoleId = 1
 
 	const menuItems = [
-		{ pathname: '/', icon: <AiOutlineHome />, label: 'Главная' },
+		{ pathname: '/', icon: <AiOutlineHome />, label: t('home') },
 		{
 			pathname: '/transactions',
 			icon: <GrTransaction />,
-			label: 'Транзакции',
+			label: t('transactions'),
 		},
-		{ pathname: '/products', icon: <FaListUl />, label: 'Товары' },
+		{ pathname: '/products', icon: <FaListUl />, label: t('products') },
 		{
 			pathname: '/categories',
 			icon: <TbCategory2 />,
-			label: 'Категории',
+			label: t('categories'),
 		},
-		{ pathname: '/brands', icon: <TbBrandSketch />, label: 'Бренды' },
-		{ pathname: '/storage', icon: <AiFillHdd />, label: 'Склад' },
+		{ pathname: '/brands', icon: <TbBrandSketch />, label: t('brands') },
+		{ pathname: '/storage', icon: <AiFillHdd />, label: t('storage') },
 	]
 
 	const handleClickRoute = (pathname: string) => {
@@ -54,7 +56,7 @@ const NavbarMenuItems: FC = () => {
 					}`}
 				>
 					<RiAdminLine />
-					Пользователи
+					{t('users')}
 				</div>
 			)}
 		</>

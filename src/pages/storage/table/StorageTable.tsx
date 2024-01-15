@@ -6,52 +6,51 @@ import { FaDeleteLeft } from 'react-icons/fa6'
 import { UiPopconfirm } from '@/shared/ui/popConfirm/UiPopconfirm'
 import styles from './StorageTable.module.scss'
 import type { ColumnsType } from 'antd/es/table'
+import { useTranslation } from 'react-i18next'
 
 const StorageTable: FC = () => {
+	const { t } = useTranslation()
 	const handleDelete = () => {
 		console.log('deleted')
 	}
 	const columns: ColumnsType<any> = [
 		{
-			title: 'Название товара',
+			title: t('storageTableCol1'),
 			dataIndex: 'name',
 		},
 		{
-			title: 'Тип транзакции',
+			title: t('storageTableCol2'),
 			dataIndex: 'name',
 		},
 		{
-			title: 'Оплата',
+			title: t('storageTableCol3'),
 			dataIndex: 'name',
 		},
 		{
-			title: 'Цена',
+			title: t('storageTableCol4'),
 			dataIndex: 'price',
 		},
 		{
-			title: 'Количество',
+			title: t('storageTableCol5'),
 			dataIndex: 'quantity',
 		},
 		{
-			title: 'Участник',
+			title: t('storageTableCol6'),
 			dataIndex: 'name',
 		},
 		{
-			title: 'Действия',
+			title: t('actions'),
 			dataIndex: 'actions',
 			render: () => (
 				<div className={styles.actions}>
 					<UiButton>
 						<AiOutlineEdit size='22' />
-						Изменить
+						{t('edit')}
 					</UiButton>
-					<UiPopconfirm
-						title='Вы действительно хотите удалить?'
-						onConfirm={handleDelete}
-					>
+					<UiPopconfirm title={t('beforeDelete')} onConfirm={handleDelete}>
 						<UiButton style={{ background: 'red' }}>
 							<FaDeleteLeft size='22' />
-							Удалить
+							{t('delete')}
 							{/* <Delete route='courses' id={rec.id} /> */}
 						</UiButton>
 					</UiPopconfirm>

@@ -6,52 +6,31 @@ import { FaDeleteLeft } from 'react-icons/fa6'
 import { UiPopconfirm } from '@/shared/ui/popConfirm/UiPopconfirm'
 import styles from './BrandsTable.module.scss'
 import type { ColumnsType } from 'antd/es/table'
+import { useTranslation } from 'react-i18next'
 
 const BrandsTable: FC = () => {
+	const { t } = useTranslation()
 	const handleDelete = () => {
 		console.log('deleted')
 	}
 	const columns: ColumnsType<any> = [
 		{
-			title: 'Название товара',
+			title: t('brandsTableCol1'),
 			dataIndex: 'name',
 		},
 		{
-			title: 'Тип транзакции',
-			dataIndex: 'name',
-		},
-		{
-			title: 'Оплата',
-			dataIndex: 'name',
-		},
-		{
-			title: 'Цена',
-			dataIndex: 'price',
-		},
-		{
-			title: 'Количество',
-			dataIndex: 'quantity',
-		},
-		{
-			title: 'Участник',
-			dataIndex: 'name',
-		},
-		{
-			title: 'Действия',
+			title: t('actions'),
 			dataIndex: 'actions',
 			render: () => (
 				<div className={styles.actions}>
 					<UiButton>
 						<AiOutlineEdit size='22' />
-						Изменить
+						{t('edit')}
 					</UiButton>
-					<UiPopconfirm
-						title='Вы действительно хотите удалить?'
-						onConfirm={handleDelete}
-					>
+					<UiPopconfirm title={t('beforeDelete')} onConfirm={handleDelete}>
 						<UiButton style={{ background: 'red' }}>
 							<FaDeleteLeft size='22' />
-							Удалить
+							{t('delete')}
 							{/* <Delete route='courses' id={rec.id} /> */}
 						</UiButton>
 					</UiPopconfirm>
