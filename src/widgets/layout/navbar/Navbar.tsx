@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { LuListOrdered } from 'react-icons/lu'
-import { UiPopconfirm } from '@/shared/ui/popConfirm/UiPopconfirm'
+import { UiPopconfirm } from '@/components/popConfirm/UiPopconfirm'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import { NavbarMenuItems } from './NavbarMenuItems'

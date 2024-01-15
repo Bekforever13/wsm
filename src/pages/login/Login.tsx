@@ -3,7 +3,7 @@ import { MaskedInput } from 'antd-mask-input'
 import { FC, useEffect } from 'react'
 import styles from './Login.module.scss'
 import { useNavigate } from 'react-router-dom'
-import { UiButton } from '@/shared/ui'
+import { UiButton } from '@/components'
 
 const Login: FC = () => {
 	const token = localStorage.getItem('access_token_wsm')

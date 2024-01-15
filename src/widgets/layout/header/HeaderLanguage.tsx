@@ -4,8 +4,9 @@ import styles from './Header.module.scss'
 import { useTranslation } from 'react-i18next'
 
 const HeaderLanguage: FC = () => {
+	const lang = localStorage.getItem('lang_wsm')
 	const { t, i18n } = useTranslation()
-	const [currentLang, setCurrentLang] = useState('')
+	const [currentLang, setCurrentLang] = useState(lang ?? 'ru')
 
 	const onSelectLang = (lang: string) => {
 		i18n.changeLanguage(lang)
@@ -14,7 +15,6 @@ const HeaderLanguage: FC = () => {
 	}
 
 	useEffect(() => {
-		const lang = localStorage.getItem('lang_wsm')
 		if (lang) {
 			setCurrentLang(lang)
 		}

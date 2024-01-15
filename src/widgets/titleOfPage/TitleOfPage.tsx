@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styles from './TitleOfPage.module.scss'
-import { UiButton } from '@/shared/ui'
+import { UiButton } from '@/components'
 import { TTitleOfPage } from './TitleOfPage.types'
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'

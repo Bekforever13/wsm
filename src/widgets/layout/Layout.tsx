@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Header } from './ui/header/Header'
-import { Navbar } from './ui/navbar/Navbar'
+import { Header } from './header/Header'
+import { Navbar } from './navbar/Navbar'
 import styles from './Layout.module.scss'
 
 const Layout: FC = () => {
