@@ -20,7 +20,7 @@ const useAuthLogoutMutation = () => {
 	const client = useQueryClient()
 	return useMutation({
 		mutationFn: fetchAuthLogout,
-		onSuccess: res => {
+		onSuccess: () => {
 			localStorage.removeItem('access_token_wsm')
 			client.invalidateQueries({ queryKey: ['auth'] })
 		},
