@@ -1,18 +1,20 @@
 import { Form, Input } from 'antd'
 import { MaskedInput } from 'antd-mask-input'
 import { FC, useEffect } from 'react'
-import styles from './Login.module.scss'
+import styles from './Auth.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { UiButton } from '@/components'
+import { clearSpaces } from '@/shared/utils/Utils'
+import { useAuthLoginMutation } from '@/features/queries/auth/auth.api'
 
-const Login: FC = () => {
+const Auth: FC = () => {
 	const token = localStorage.getItem('access_token_wsm')
 	const [form] = Form.useForm()
 	const navigate = useNavigate()
+	const { mutate } = useAuthLoginMutation()
 
-	const onFinish = () => {
-		localStorage.setItem('access_token_wsm', 'qwecqwecasec')
-		navigate('/')
+	const onFinish = (values: any) => {
+		mutate({ ...values, phone: clearSpaces(values.phone) })
 	}
 
 	useEffect(() => {
@@ -47,4 +49,4 @@ const Login: FC = () => {
 	)
 }
 
-export { Login }
+export { Auth }

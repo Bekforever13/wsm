@@ -11,8 +11,7 @@ const Layout: FC = () => {
 
 	useEffect(() => {
 		if (!token) {
-			localStorage.removeItem('access_token_wsm')
-			navigate('/login')
+			navigate('/auth')
 		}
 	}, [pathname])
 

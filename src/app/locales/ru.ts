@@ -29,6 +29,11 @@ export const ru = {
 
 		// categories page
 		categoriesTableCol1: 'Название категории',
+		newCategory: 'Новая категория',
+		categoryMessageRequired: 'Введите название категории!',
+		categoryMessageSuccess: 'Категория успешно создано!',
+		categoryMessageEditSuccess: 'Категория успешно изменено!',
+		categoryMessageDeleteSuccess: 'Категория успешно удалено!',
 
 		// brands page
 		brandsTableCol1: 'Название бренда',

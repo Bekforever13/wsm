@@ -29,6 +29,11 @@ export const qq = {
 
 		// categories page
 		categoriesTableCol1: 'Тайпа аты',
+		newCategory: 'Таза тайпа',
+		categoryMessageRequired: 'Тайпаның атын жазың!',
+		categoryMessageCreateSuccess: 'Тайпа жаратылды!',
+		categoryMessageEditSuccess: 'Тайпа өзгертилди!',
+		categoryMessageDeleteSuccess: 'Тайпа өширилди!',
 
 		// brands page
 		brandsTableCol1: 'Бренд аты',

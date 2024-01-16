@@ -4,12 +4,17 @@ import { UiButton } from '@/components'
 import { TTitleOfPage } from './TitleOfPage.types'
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { adminStore } from '@/app/store'
 
 const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation()
+	const { setCategoriesModal } = adminStore(s => s)
+
 	const handleClickButton = () => {
-		console.log(route)
+		if (route === 'categories') {
+			setCategoriesModal(true)
+		}
 	}
 
 	return (

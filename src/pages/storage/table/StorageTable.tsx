@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { Table } from 'antd/lib'
 import { UiButton } from '@/components'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { FaDeleteLeft } from 'react-icons/fa6'
@@ -7,6 +6,7 @@ import { UiPopconfirm } from '@/components/popConfirm/UiPopconfirm'
 import styles from './StorageTable.module.scss'
 import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
+import { UiTable } from '@/components/table/UiTable'
 
 const StorageTable: FC = () => {
 	const { t } = useTranslation()
@@ -60,7 +60,7 @@ const StorageTable: FC = () => {
 	]
 
 	return (
-		<Table
+		<UiTable
 			columns={columns}
 			dataSource={[{}]}
 			pagination={{
@@ -71,9 +71,6 @@ const StorageTable: FC = () => {
 				// onChange: e => setPage(e),
 			}}
 			rowKey={e => e.id}
-			scroll={{ x: true }}
-			size='small'
-			bordered
 		/>
 	)
 }

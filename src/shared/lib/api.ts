@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInterceptor = axios.create({
-	baseURL: 'https://demo.sales-up.uz/api/v1',
+	baseURL: import.meta.env.VITE_APP_API_URL,
 })
 
 axiosInterceptor.interceptors.request.use(function (config) {

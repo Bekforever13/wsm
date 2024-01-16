@@ -9,7 +9,7 @@ import {
 	Categories,
 	Brands,
 	Storage,
-	Login,
+	Auth,
 	Users,
 } from '@/pages'
 
@@ -25,7 +25,7 @@ const App: FC = () => {
 				<Route path='/storage' element={<Storage />} />
 				<Route path='/users' element={<Users />} />
 			</Route>
-			<Route path='/login' element={<Login />} />
+			<Route path='/auth' element={<Auth />} />
 		</Routes>
 	)
 }

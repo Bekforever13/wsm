@@ -1,11 +1,23 @@
 import ReactDOM from 'react-dom/client'
-import { App } from './App.tsx'
+import { App } from './app/App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import 'antd/dist/reset.css'
-import './i18next'
+import '@/app/i18next.ts'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			staleTime: Infinity,
+		},
+	},
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>
+	<QueryClientProvider client={queryClient}>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</QueryClientProvider>
 )

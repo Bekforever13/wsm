@@ -1,19 +1,17 @@
 import { FC } from 'react'
 import { LuListOrdered } from 'react-icons/lu'
 import { UiPopconfirm } from '@/components/popConfirm/UiPopconfirm'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import { NavbarMenuItems } from './NavbarMenuItems'
 import { useTranslation } from 'react-i18next'
+import { useAuthLogoutMutation } from '@/features/queries/auth/auth.api'
 
 const Navbar: FC = () => {
 	const { t } = useTranslation()
-	const navigate = useNavigate()
+	const { mutate } = useAuthLogoutMutation()
 
-	const onConfirmLogout = () => {
-		localStorage.removeItem('token')
-		navigate('/login')
-	}
+	const onConfirmLogout = () => mutate()
 
 	return (
 		<div className={styles.container}>

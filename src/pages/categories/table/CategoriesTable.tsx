@@ -1,60 +1,73 @@
-import { FC } from 'react'
-import { Table } from 'antd/lib'
-import { UiButton } from '@/components'
-import { AiOutlineEdit } from 'react-icons/ai'
-import { FaDeleteLeft } from 'react-icons/fa6'
-import { UiPopconfirm } from '@/components/popConfirm/UiPopconfirm'
-import styles from './CategoriesTable.module.scss'
-import type { ColumnsType } from 'antd/es/table'
+import { FC, useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useGetCategories } from '@/features/queries/categories/categories.api'
+import { TCategory } from '@/features/queries/categories/categories.types'
+import { UiTable } from '@/components/table/UiTable'
+import { adminStore } from '@/app/store'
+import type { ColumnsType } from 'antd/es/table'
+
+import { CategoriesTableActions } from './CategoriesTableActions'
+import { CategoriesModal } from '@/features/modals'
 
 const CategoriesTable: FC = () => {
 	const { t } = useTranslation()
-	const handleDelete = () => {
-		console.log('deleted')
-	}
-	const columns: ColumnsType<any> = [
+	const { data: categoriesData, isLoading } = useGetCategories()
+	const inputRef = useRef<HTMLInputElement>(null)
+	const { categoriesToEdit } = adminStore(state => state)
+	const [newCategoryName, setNewCategoryName] = useState('')
+
+	const columns: ColumnsType<TCategory> = [
 		{
 			title: t('categoriesTableCol1'),
 			dataIndex: 'name',
+			render: (el, record) => {
+				if (record.id === categoriesToEdit?.id) {
+					return (
+						<input
+							style={{ width: '100%', padding: '3px 6px', borderRadius: '5px' }}
+							ref={inputRef}
+							value={newCategoryName}
+							onChange={e => setNewCategoryName(e.target.value)}
+							type='text'
+						/>
+					)
+				} else {
+					return el
+				}
+			},
 		},
 		{
 			title: t('actions'),
 			dataIndex: 'actions',
-			render: () => (
-				<div className={styles.actions}>
-					<UiButton>
-						<AiOutlineEdit size='22' />
-						{t('edit')}
-					</UiButton>
-					<UiPopconfirm title={t('beforeDelete')} onConfirm={handleDelete}>
-						<UiButton style={{ background: 'red' }}>
-							<FaDeleteLeft size='22' />
-							{t('delete')}
-							{/* <Delete route='courses' id={rec.id} /> */}
-						</UiButton>
-					</UiPopconfirm>
-				</div>
+			render: (_, rec) => (
+				<CategoriesTableActions
+					newCategoryName={newCategoryName}
+					setNewCategoryName={setNewCategoryName}
+					rec={rec}
+				/>
 			),
 		},
 	]
 
+	useEffect(() => inputRef.current?.focus(), [categoriesToEdit?.id])
+
 	return (
-		<Table
-			columns={columns}
-			dataSource={[{}]}
-			pagination={{
-				total: 10,
-				current: 1,
-				showSizeChanger: false,
-				defaultPageSize: 10,
-				// onChange: e => setPage(e),
-			}}
-			rowKey={e => e.id}
-			scroll={{ x: true }}
-			size='small'
-			bordered
-		/>
+		<>
+			<UiTable
+				columns={columns}
+				dataSource={categoriesData?.data}
+				loading={isLoading}
+				pagination={{
+					total: 10,
+					current: 1,
+					showSizeChanger: false,
+					defaultPageSize: 10,
+					// onChange: e => setPage(e),
+				}}
+				rowKey={e => e.id}
+			/>
+			<CategoriesModal />
+		</>
 	)
 }
 
