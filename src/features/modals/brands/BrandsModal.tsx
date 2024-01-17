@@ -1,19 +1,19 @@
 import { FC } from 'react'
-import { CategoriesStore } from '@/app/store'
+import { BrandStore } from '@/app/store'
 import { UiButton, UiInput } from '@/components'
-import { useCreateCategory } from '@/features/queries/categories/categories.api'
 import { Drawer, Form } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { TCategoryFormData } from '@/features/queries/categories/categories.types'
+import { useCreateBrand } from '@/features/queries/brands/brands.api'
 
-const CategoriesModal: FC = () => {
+const BrandsModal: FC = () => {
 	const [form] = Form.useForm()
 	const { t } = useTranslation()
-	const { categoriesModal, setCategoriesModal } = CategoriesStore(s => s)
-	const { mutate } = useCreateCategory()
+	const { brandsModal, setBrandsModal } = BrandStore(s => s)
+	const { mutate } = useCreateBrand()
 
 	const handleClose = () => {
-		setCategoriesModal(false)
+		setBrandsModal(false)
 		form.resetFields()
 	}
 
@@ -25,15 +25,15 @@ const CategoriesModal: FC = () => {
 	return (
 		<Drawer
 			placement='right'
-			title={t('newCategory')}
+			title={t('newBrands')}
 			onClose={handleClose}
-			open={categoriesModal}
+			open={brandsModal}
 		>
 			<Form layout='vertical' form={form} onFinish={handleSubmit}>
 				<Form.Item
 					name='name'
-					label={t('categoriesTableCol1')}
-					rules={[{ required: true, message: t('categoryMessageRequired') }]}
+					label={t('brandsTableCol1')}
+					rules={[{ required: true, message: t('brandsMessageRequired') }]}
 				>
 					<UiInput />
 				</Form.Item>
@@ -43,4 +43,4 @@ const CategoriesModal: FC = () => {
 	)
 }
 
-export { CategoriesModal }
+export { BrandsModal }

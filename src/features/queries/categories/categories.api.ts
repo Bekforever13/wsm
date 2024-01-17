@@ -35,7 +35,8 @@ const useEditCategory = () => {
 			client.invalidateQueries({ queryKey: ['categories'] })
 			message.success(t('categoryMessageEditSuccess'))
 		},
-		onError: () => message.error('Произошла ошибка при создании категории'),
+		onError: () =>
+			message.error('Произошла ошибка при редактировании категории'),
 	})
 }
 const useDeleteCategory = () => {
@@ -47,7 +48,7 @@ const useDeleteCategory = () => {
 			client.invalidateQueries({ queryKey: ['categories'] })
 			message.success(t('categoryMessageDeleteSuccess'))
 		},
-		onError: () => message.error('Произошла ошибка при создании категории'),
+		onError: () => message.error('Произошла ошибка при удалении категории'),
 	})
 }
 

@@ -7,43 +7,43 @@ import { Button } from 'antd'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { FaDeleteLeft } from 'react-icons/fa6'
 import { UiPopconfirm } from '@/components/popConfirm/UiPopconfirm'
-import { CategoriesStore } from '@/app/store'
+import { BrandStore } from '@/app/store'
 import { UiButton } from '@/components'
-import styles from './CategoriesTable.module.scss'
+import styles from './BrandsTable.module.scss'
 import {
-	useDeleteCategory,
-	useEditCategory,
-} from '@/features/queries/categories/categories.api'
+	useDeleteBrand,
+	useEditBrand,
+} from '@/features/queries/brands/brands.api'
 
 type Props = {
 	rec: TCategory
-	newCategoryName: string
-	setNewCategoryName: Dispatch<SetStateAction<string>>
+	newBrandName: string
+	setNewBrandName: Dispatch<SetStateAction<string>>
 }
 
-const CategoriesTableActions: FC<Props> = props => {
-	const { rec, newCategoryName, setNewCategoryName } = props
-	const { setCategoryToEdit } = CategoriesStore(s => s)
-	const { mutate: deleteCategory } = useDeleteCategory()
-	const { mutate: editCategory, isSuccess: editSuccess } = useEditCategory()
+const BrandsTableActions: FC<Props> = props => {
+	const { rec, newBrandName, setNewBrandName } = props
+	const { setBrandsToEdit } = BrandStore(s => s)
+	const { mutate: deleteBrand } = useDeleteBrand()
+	const { mutate: editBrand, isSuccess: editSuccess } = useEditBrand()
 	const { t } = useTranslation()
 
 	const handleDelete = (id: number) => {
-		deleteCategory(id)
+		deleteBrand(id)
 	}
 
 	const handleEdit = () => {
-		setCategoryToEdit(rec)
-		setNewCategoryName(rec.name)
+		setBrandsToEdit(rec)
+		setNewBrandName(rec.name)
 	}
 
 	const handleSave = async () => {
-		editCategory({ id: rec.id, name: newCategoryName })
+		editBrand({ id: rec.id, name: newBrandName })
 	}
 
 	const handleCancel = () => {
-		setCategoryToEdit(null)
-		setNewCategoryName('')
+		setBrandsToEdit(null)
+		setNewBrandName('')
 	}
 
 	useEffect(() => {
@@ -54,13 +54,13 @@ const CategoriesTableActions: FC<Props> = props => {
 
 	return (
 		<div className={styles.actions}>
-			{!newCategoryName && (
+			{!newBrandName && (
 				<UiButton onClick={handleEdit}>
 					<AiOutlineEdit size='22' />
 					{t('edit')}
 				</UiButton>
 			)}
-			{newCategoryName && (
+			{newBrandName && (
 				<>
 					<UiButton onClick={handleSave}>
 						<FaRegSave />
@@ -85,4 +85,4 @@ const CategoriesTableActions: FC<Props> = props => {
 	)
 }
 
-export { CategoriesTableActions }
+export { BrandsTableActions }

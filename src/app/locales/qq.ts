@@ -37,6 +37,11 @@ export const qq = {
 
 		// brands page
 		brandsTableCol1: 'Бренд аты',
+		newBrands: 'Таза бренд',
+		brandsMessageRequired: 'Бренд атын жазың!',
+		brandsMessageCreateSuccess: 'Бренд жаратылды!',
+		brandsMessageEditSuccess: 'Бренд өзгертилди!',
+		brandsMessageDeleteSuccess: 'Бренд өширилди!',
 
 		// storage page
 		storageTableCol1: 'Өним аты',
@@ -61,5 +66,7 @@ export const qq = {
 		exit: 'Шығыу',
 		beforeExit: 'Ҳақыйқаттан да кетиўди қәлейсизбе?',
 		beforeDelete: 'Ҳақыйқаттан да өшириўди қәлейсизбе?',
+		select: 'Сайлаң',
+		name: 'Аты',
 	},
 }

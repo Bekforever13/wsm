@@ -1,6 +1,6 @@
 import { TCategory } from '@/features/queries/categories/categories.types'
 
-export type Store = {
+export type categoriesStoreTypes = {
 	categoriesToEdit: TCategory | null
 	categoriesModal: boolean
 	setCategoryToEdit: (el: TCategory | null) => void

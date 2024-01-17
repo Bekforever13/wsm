@@ -1,57 +1,73 @@
-import { FC } from 'react'
-import { UiButton } from '@/components'
-import { AiOutlineEdit } from 'react-icons/ai'
-import { FaDeleteLeft } from 'react-icons/fa6'
-import { UiPopconfirm } from '@/components/popConfirm/UiPopconfirm'
-import styles from './BrandsTable.module.scss'
+import { FC, useState, useRef, useEffect } from 'react'
 import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
 import { UiTable } from '@/components/table/UiTable'
+import { BrandsTableActions } from './BrandsTableActions'
+import { useGetBrands } from '@/features/queries/brands/brands.api'
+import { BrandStore } from '@/app/store'
+import { TBrand } from '@/features/queries/brands/brands.types'
+import { BrandsModal } from '@/features/modals/brands/BrandsModal'
 
 const BrandsTable: FC = () => {
 	const { t } = useTranslation()
-	const handleDelete = () => {
-		console.log('deleted')
-	}
-	const columns: ColumnsType<any> = [
+	const { data: brandsData, isLoading } = useGetBrands()
+	const inputRef = useRef<HTMLInputElement>(null)
+	const { brandsToEdit } = BrandStore(s => s)
+	const [newBrandName, setNewBrandName] = useState('')
+	const [page, setPage] = useState(1)
+
+	const columns: ColumnsType<TBrand> = [
 		{
-			title: t('brandsTableCol1'),
+			title: t('categoriesTableCol1'),
 			dataIndex: 'name',
+			render: (el, record) => {
+				if (record.id === brandsToEdit?.id) {
+					return (
+						<input
+							style={{ width: '100%', padding: '3px 6px', borderRadius: '5px' }}
+							ref={inputRef}
+							value={newBrandName}
+							onChange={e => setNewBrandName(e.target.value)}
+							type='text'
+						/>
+					)
+				} else {
+					return el
+				}
+			},
 		},
 		{
 			title: t('actions'),
 			dataIndex: 'actions',
-			render: () => (
-				<div className={styles.actions}>
-					<UiButton>
-						<AiOutlineEdit size='22' />
-						{t('edit')}
-					</UiButton>
-					<UiPopconfirm title={t('beforeDelete')} onConfirm={handleDelete}>
-						<UiButton style={{ background: 'red' }}>
-							<FaDeleteLeft size='22' />
-							{t('delete')}
-							{/* <Delete route='courses' id={rec.id} /> */}
-						</UiButton>
-					</UiPopconfirm>
-				</div>
+			render: (_, rec) => (
+				<BrandsTableActions
+					newBrandName={newBrandName}
+					setNewBrandName={setNewBrandName}
+					rec={rec}
+				/>
 			),
 		},
 	]
 
+	useEffect(() => inputRef.current?.focus(), [brandsToEdit?.id])
+
 	return (
-		<UiTable
-			columns={columns}
-			dataSource={[{}]}
-			pagination={{
-				total: 10,
-				current: 1,
-				showSizeChanger: false,
-				defaultPageSize: 10,
-				// onChange: e => setPage(e),
-			}}
-			rowKey={e => e.id}
-		/>
+		<>
+			<UiTable
+				columns={columns}
+				dataSource={brandsData?.data}
+				loading={isLoading}
+				pagination={{
+					total: brandsData?.length,
+					current: page,
+					showSizeChanger: false,
+					defaultPageSize: 10,
+					onChange: e => setPage(e),
+				}}
+				rowKey={e => e.id}
+			/>
+			<BrandsModal />
+		</>
 	)
 }
 

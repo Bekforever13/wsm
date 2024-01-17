@@ -26,17 +26,27 @@ export const ru = {
 		productsTableCol1: 'Название товара',
 		productsTableCol2: 'Категория',
 		productsTableCol3: 'Бренд',
+		newProducts: 'Новая категория',
+		productsMessageRequired: 'Введите название категории!',
+		productsMessageCreateSuccess: 'Категория успешно создано!',
+		productsMessageEditSuccess: 'Категория успешно изменено!',
+		productsMessageDeleteSuccess: 'Категория успешно удалено!',
 
 		// categories page
 		categoriesTableCol1: 'Название категории',
 		newCategory: 'Новая категория',
 		categoryMessageRequired: 'Введите название категории!',
-		categoryMessageSuccess: 'Категория успешно создано!',
+		categoryMessageCreateSuccess: 'Категория успешно создано!',
 		categoryMessageEditSuccess: 'Категория успешно изменено!',
 		categoryMessageDeleteSuccess: 'Категория успешно удалено!',
 
 		// brands page
 		brandsTableCol1: 'Название бренда',
+		newBrands: 'Новый бренд',
+		brandsMessageRequired: 'Введите название бренда!',
+		brandsMessageCreateSuccess: 'Бренд успешно создан!',
+		brandsMessageEditSuccess: 'Бренд успешно изменен!',
+		brandsMessageDeleteSuccess: 'Бренд успешно удален!',
 
 		// storage page
 		storageTableCol1: 'Название товара',
@@ -61,5 +71,7 @@ export const ru = {
 		exit: 'Выйти',
 		beforeExit: 'Вы действительно хотите выйти?',
 		beforeDelete: 'Вы действительно хотите удалить?',
+		select: 'Выберите',
+		name: 'Название',
 	},
 }
