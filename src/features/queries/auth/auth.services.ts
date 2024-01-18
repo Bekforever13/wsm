@@ -1,7 +1,7 @@
 import { axiosInterceptor } from '@/shared/lib/api'
 import { TLogin } from './auth.types'
 
-export const fetchAuthLogin = async (values: TLogin): Promise<any> => {
+export const fetchAuthLogin = async (values: TLogin) => {
 	const res = await axiosInterceptor.post('/login', values)
 	return res.data
 }

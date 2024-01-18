@@ -2,14 +2,16 @@ import { FC, useState } from 'react'
 import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
 import { UiTable } from '@/components/table/UiTable'
-import { TStorage } from '@/features/queries/storage/storage.types'
-import { useGetStorage } from '@/features/queries/storage/storage.api'
-import { useGetCategories } from '@/features/queries/categories/categories.api'
-import { useGetBrands } from '@/features/queries/brands/brands.api'
-import { TCategory } from '@/features/queries/categories/categories.types'
-import { TBrand } from '@/features/queries/brands/brands.types'
-import { useGetProducts } from '@/features/queries/products/products.api'
-import { TProducts } from '@/features/queries/products/products.types'
+import {
+	TProducts,
+	useGetProducts,
+	TBrand,
+	TCategory,
+	useGetBrands,
+	useGetCategories,
+	useGetStorage,
+	TStorage,
+} from '@/features/queries'
 
 const StorageTable: FC = () => {
 	const { t } = useTranslation()

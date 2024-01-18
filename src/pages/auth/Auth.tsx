@@ -5,7 +5,7 @@ import styles from './Auth.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { UiButton } from '@/components'
 import { clearSpaces } from '@/shared/utils/Utils'
-import { useAuthLoginMutation } from '@/features/queries/auth/auth.api'
+import { TLogin, useAuthLoginMutation } from '@/features/queries'
 
 const Auth: FC = () => {
 	const token = localStorage.getItem('access_token_wsm')
@@ -13,7 +13,7 @@ const Auth: FC = () => {
 	const navigate = useNavigate()
 	const { mutate } = useAuthLoginMutation()
 
-	const onFinish = (values: any) => {
+	const onFinish = (values: TLogin) => {
 		mutate({ ...values, phone: clearSpaces(values.phone) })
 	}
 

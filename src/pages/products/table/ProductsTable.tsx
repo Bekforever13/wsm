@@ -1,15 +1,17 @@
 import { FC, useState } from 'react'
-import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
-import { UiTable } from '@/components/table/UiTable'
+import type { ColumnsType } from 'antd/es/table'
 import { ProductsTableActions } from './ProductsTableActions'
-import { useGetProducts } from '@/features/queries/products/products.api'
-import { useGetBrands } from '@/features/queries/brands/brands.api'
-import { useGetCategories } from '@/features/queries/categories/categories.api'
-import { TCategory } from '@/features/queries/categories/categories.types'
-import { TProducts } from '@/features/queries/products/products.types'
-import { TBrand } from '@/features/queries/brands/brands.types'
-import { ProductsModal } from '@/features/modals/products/ProductsModal'
+import { UiTable } from '@/components/table/UiTable'
+import { ProductsModal } from '@/features/modals'
+import {
+	TProducts,
+	TBrand,
+	TCategory,
+	useGetCategories,
+	useGetBrands,
+	useGetProducts,
+} from '@/features/queries'
 
 const ProductsTable: FC = () => {
 	const { t } = useTranslation()

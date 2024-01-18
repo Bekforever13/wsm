@@ -1,1 +1,5 @@
 export * from './categories/CategoriesModal'
+export * from './brands/BrandsModal'
+export * from './products/ProductsModal'
+export * from './transactions/TransactionsModal'
+// export * from './users/UsersModal'

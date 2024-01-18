@@ -1,11 +1,10 @@
 import { FC, useState } from 'react'
-import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
-import { UiTable } from '@/components/table/UiTable'
-import { useGetTransactions } from '@/features/queries/transactions/transactions.api'
+import type { ColumnsType } from 'antd/es/table'
 import { TransactionsTableActions } from './TransactionsTableActions'
-import { TransactionsModal } from '@/features/modals/transactions/TransactionsModal'
-import { TTransactions } from '@/features/queries/transactions/transactions.types'
+import { UiTable } from '@/components/table/UiTable'
+import { TransactionsModal } from '@/features/modals'
+import { TTransactions, useGetTransactions } from '@/features/queries'
 import { formatPrice } from '@/shared/utils/Utils'
 
 const TransactionsTable: FC = () => {

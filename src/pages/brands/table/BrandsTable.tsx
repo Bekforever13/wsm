@@ -1,12 +1,11 @@
 import { FC, useState, useRef, useEffect } from 'react'
-import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
+import type { ColumnsType } from 'antd/es/table'
 import { UiTable } from '@/components/table/UiTable'
-import { BrandsTableActions } from './BrandsTableActions'
-import { useGetBrands } from '@/features/queries/brands/brands.api'
 import { BrandStore } from '@/app/store'
-import { TBrand } from '@/features/queries/brands/brands.types'
-import { BrandsModal } from '@/features/modals/brands/BrandsModal'
+import { useGetBrands, TBrand } from '@/features/queries'
+import { BrandsModal } from '@/features/modals'
+import { BrandsTableActions } from './BrandsTableActions'
 
 const BrandsTable: FC = () => {
 	const { t } = useTranslation()

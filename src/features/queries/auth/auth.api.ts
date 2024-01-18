@@ -1,7 +1,5 @@
 import { message } from 'antd'
-
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 import { fetchAuthLogin, fetchAuthLogout } from './auth.services'
 
 const useAuthLoginMutation = () => {
@@ -24,7 +22,7 @@ const useAuthLogoutMutation = () => {
 			localStorage.removeItem('access_token_wsm')
 			client.invalidateQueries({ queryKey: ['auth'] })
 		},
-		onError: () => message.error('Произошла ошибка при авторизации'),
+		onError: () => message.error('Произошла ошибка при выходе'),
 	})
 }
 

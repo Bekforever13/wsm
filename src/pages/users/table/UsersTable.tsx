@@ -13,6 +13,7 @@ const UsersTable: FC = () => {
 	const handleDelete = () => {
 		console.log('deleted')
 	}
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const columns: ColumnsType<any> = [
 		{
 			title: t('userTableCol1'),

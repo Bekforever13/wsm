@@ -1,12 +1,10 @@
 import { FC, useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useGetCategories } from '@/features/queries/categories/categories.api'
-import { TCategory } from '@/features/queries/categories/categories.types'
+import type { ColumnsType } from 'antd/es/table'
+import { CategoriesTableActions } from './CategoriesTableActions'
+import { TCategory, useGetCategories } from '@/features/queries'
 import { UiTable } from '@/components/table/UiTable'
 import { CategoriesStore } from '@/app/store'
-import type { ColumnsType } from 'antd/es/table'
-
-import { CategoriesTableActions } from './CategoriesTableActions'
 import { CategoriesModal } from '@/features/modals'
 
 const CategoriesTable: FC = () => {
