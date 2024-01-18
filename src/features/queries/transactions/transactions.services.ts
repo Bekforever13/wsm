@@ -14,8 +14,8 @@ export const createTransactions = async (formData: TTransactionsFormData) => {
 export const editTransactions = async (formData: TTransactionsFormData) => {
 	const res = await axiosInterceptor.put(`/transactions/${formData.id}`, {
 		product_id: formData.product_id,
-		payment_type_id: formData.payment_type,
-		transaction_type_id: formData.transactions_type,
+		payment_type: formData.payment_type,
+		transaction_type: formData.transaction_type,
 		price: formData.price,
 		quantity: formData.quantity,
 	})

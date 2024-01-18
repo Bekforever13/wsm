@@ -46,6 +46,10 @@ const TransactionsTable: FC = () => {
 			dataIndex: 'quantity',
 		},
 		{
+			title: t('transactionsTableCol6'),
+			dataIndex: 'date',
+		},
+		{
 			title: t('actions'),
 			dataIndex: 'actions',
 			render: (_, rec) => <TransactionsTableActions rec={rec} />,

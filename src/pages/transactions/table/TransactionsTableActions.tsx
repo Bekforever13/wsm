@@ -30,7 +30,7 @@ const TransactionsTableActions: FC<Props> = props => {
 			id: rec.id,
 			product_id: rec.product.id,
 			payment_type: rec.payment_type.id,
-			transactions_type: rec.transaction_type.id,
+			transaction_type: rec.transaction_type.id,
 			price: rec.price,
 			quantity: rec.quantity,
 		})

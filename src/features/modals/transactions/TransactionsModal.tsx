@@ -62,11 +62,12 @@ const TransactionsModal: FC = () => {
 
 	useEffect(() => {
 		if (transactionsToEdit) {
+			console.log('tr to edit: ', transactionsToEdit)
 			form.setFieldValue('product_id', transactionsToEdit.product_id)
 			form.setFieldValue('payment_type', transactionsToEdit.payment_type)
 			form.setFieldValue(
 				'transaction_type',
-				transactionsToEdit.transactions_type
+				transactionsToEdit.transaction_type
 			)
 			form.setFieldValue('price', transactionsToEdit.price)
 			form.setFieldValue('quantity', transactionsToEdit.quantity)

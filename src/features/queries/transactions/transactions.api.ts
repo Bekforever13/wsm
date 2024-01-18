@@ -21,6 +21,7 @@ const useCreateTransactions = () => {
 		mutationFn: createTransactions,
 		onSuccess: () => {
 			client.invalidateQueries({ queryKey: ['transactions'] })
+			client.invalidateQueries({ queryKey: ['storage'] })
 			message.success(t('transactionsMessageCreateSuccess'))
 		},
 		onError: () => message.error('Произошла ошибка при создании транзакции'),
@@ -33,6 +34,7 @@ const useEditTransactions = () => {
 		mutationFn: editTransactions,
 		onSuccess: () => {
 			client.invalidateQueries({ queryKey: ['transactions'] })
+			client.invalidateQueries({ queryKey: ['storage'] })
 			message.success(t('transactionsMessageEditSuccess'))
 		},
 		onError: () =>
@@ -46,6 +48,7 @@ const useDeleteTransactions = () => {
 		mutationFn: deleteTransactions,
 		onSuccess: () => {
 			client.invalidateQueries({ queryKey: ['transactions'] })
+			client.invalidateQueries({ queryKey: ['storage'] })
 			message.success(t('transactionsMessageDeleteSuccess'))
 		},
 		onError: () => message.error('Произошла ошибка при удалении транзакции'),

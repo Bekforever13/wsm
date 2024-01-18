@@ -3,7 +3,7 @@ import { TProducts } from '../products/products.types'
 export type TTransactionsFormData = {
 	product_id: number
 	payment_type: number
-	transactions_type: number
+	transaction_type: number
 	price: number
 	quantity: number
 	date?: string
