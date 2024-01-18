@@ -20,7 +20,11 @@ export const ru = {
 		transactionsTableCol3: 'Оплата',
 		transactionsTableCol4: 'Цена',
 		transactionsTableCol5: 'Количество',
-		transactionsTableCol6: 'Участник',
+		transactionsTableCol6: 'Дата',
+		transactionsMessageRequired: 'Введите название транзакции!',
+		transactionsMessageCreateSuccess: 'Транзакция успешно создано!',
+		transactionsMessageEditSuccess: 'Транзакция успешно изменено!',
+		transactionsMessageDeleteSuccess: 'Транзакция успешно удалено!',
 
 		// products page
 		productsTableCol1: 'Название товара',
@@ -73,5 +77,10 @@ export const ru = {
 		beforeDelete: 'Вы действительно хотите удалить?',
 		select: 'Выберите',
 		name: 'Название',
+		cash: 'Наличка',
+		plastic_card: 'Пластиковая карта',
+		credit: 'Кредит',
+		purchased: 'Куплено',
+		sales: 'Продано',
 	},
 }

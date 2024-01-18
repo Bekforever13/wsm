@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInterceptor = axios.create({
-	baseURL: import.meta.env.VITE_APP_API_URL,
+	baseURL: 'https://stockroom.karsoft.uz/api',
 })
 
 axiosInterceptor.interceptors.request.use(function (config) {
