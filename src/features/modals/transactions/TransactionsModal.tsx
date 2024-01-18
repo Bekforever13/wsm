@@ -4,7 +4,6 @@ import { DatePicker, Drawer, Form } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useGetProducts } from '@/features/queries/products/products.api'
 import { UiSelect } from '@/components/select/UiSelect'
-import { TCategory } from '@/features/queries/categories/categories.types'
 import { TransactionsStore } from '@/app/store/transactionsStore'
 import {
 	useCreateTransactions,
@@ -12,6 +11,7 @@ import {
 } from '@/features/queries/transactions/transactions.api'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
 import { formattedDate } from '@/shared/utils/Utils'
+import { TProducts } from '@/features/queries/products/products.types'
 
 type TOptions = {
 	label: string
@@ -70,13 +70,12 @@ const TransactionsModal: FC = () => {
 			)
 			form.setFieldValue('price', transactionsToEdit.price)
 			form.setFieldValue('quantity', transactionsToEdit.quantity)
-			form.setFieldValue('date', transactionsToEdit.date)
 		}
 	}, [transactionsToEdit])
 
 	useEffect(() => {
 		if (productsData) {
-			productsData.data.map((el: TCategory) =>
+			productsData.data.map((el: TProducts) =>
 				setProductsOptions(prev => [...prev, { value: el.id, label: el.name }])
 			)
 		}
@@ -144,15 +143,17 @@ const TransactionsModal: FC = () => {
 				>
 					<UiInput type='number' placeholder={t('transactionsTableCol5')} />
 				</Form.Item>
-				<Form.Item
-					name='date'
-					label={t('transactionsTableCol6')}
-					rules={[
-						{ required: true, message: t('transactionsMessageRequired') },
-					]}
-				>
-					<DatePicker showTime />
-				</Form.Item>
+				{!transactionsToEdit && (
+					<Form.Item
+						name='date'
+						label={t('transactionsTableCol6')}
+						rules={[
+							{ required: true, message: t('transactionsMessageRequired') },
+						]}
+					>
+						<DatePicker showTime />
+					</Form.Item>
+				)}
 				<UiButton>{transactionsToEdit ? t('save') : t('add')}</UiButton>
 			</Form>
 		</Drawer>

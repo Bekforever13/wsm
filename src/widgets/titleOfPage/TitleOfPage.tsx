@@ -35,7 +35,7 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
 	return (
 		<div className={styles.head}>
 			<h1>{title}</h1>
-			{pathname !== '/' && (
+			{pathname !== '/' && pathname !== '/storage' && (
 				<UiButton onClick={handleClickButton}>{t('add')}</UiButton>
 			)}
 		</div>

@@ -6,6 +6,7 @@ import { useGetTransactions } from '@/features/queries/transactions/transactions
 import { TransactionsTableActions } from './TransactionsTableActions'
 import { TransactionsModal } from '@/features/modals/transactions/TransactionsModal'
 import { TTransactions } from '@/features/queries/transactions/transactions.types'
+import { formatPrice } from '@/shared/utils/Utils'
 
 const TransactionsTable: FC = () => {
 	const { t } = useTranslation()
@@ -39,6 +40,7 @@ const TransactionsTable: FC = () => {
 		{
 			title: t('transactionsTableCol4'),
 			dataIndex: 'price',
+			render: (_, rec) => formatPrice(rec.price),
 		},
 		{
 			title: t('transactionsTableCol5'),

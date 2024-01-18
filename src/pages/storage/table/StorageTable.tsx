@@ -1,74 +1,96 @@
-import { FC } from 'react'
-import { UiButton } from '@/components'
-import { AiOutlineEdit } from 'react-icons/ai'
-import { FaDeleteLeft } from 'react-icons/fa6'
-import { UiPopconfirm } from '@/components/popConfirm/UiPopconfirm'
-import styles from './StorageTable.module.scss'
+import { FC, useState } from 'react'
 import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
 import { UiTable } from '@/components/table/UiTable'
+import { TStorage } from '@/features/queries/storage/storage.types'
+import { useGetStorage } from '@/features/queries/storage/storage.api'
+import { useGetCategories } from '@/features/queries/categories/categories.api'
+import { useGetBrands } from '@/features/queries/brands/brands.api'
+import { TCategory } from '@/features/queries/categories/categories.types'
+import { TBrand } from '@/features/queries/brands/brands.types'
+import { useGetProducts } from '@/features/queries/products/products.api'
+import { TProducts } from '@/features/queries/products/products.types'
 
 const StorageTable: FC = () => {
 	const { t } = useTranslation()
-	const handleDelete = () => {
-		console.log('deleted')
-	}
-	const columns: ColumnsType<any> = [
+	const { data: storageData } = useGetStorage()
+	const { data: categoriesData } = useGetCategories()
+	const { data: brandsData } = useGetBrands()
+	const { data: productsData } = useGetProducts()
+	const [page, setPage] = useState(1)
+
+	const columns: ColumnsType<TStorage> = [
 		{
 			title: t('storageTableCol1'),
 			dataIndex: 'name',
+			render: (_, rec) => rec.product.name,
+			filters: productsData?.data?.map((el: TProducts) => ({
+				text: el.name,
+				value: el.name,
+			})),
+			filterMode: 'tree',
+			filterSearch: true,
+			onFilter: (el: unknown, rec) => rec.product.name.startsWith(el as string),
 		},
 		{
 			title: t('storageTableCol2'),
-			dataIndex: 'name',
+			dataIndex: 'category',
+			render: (_, rec) =>
+				categoriesData?.data?.find(
+					(el: TCategory) => el.id === rec.product.category_id
+				)?.name,
+			filters: categoriesData?.data?.map((el: TCategory) => ({
+				text: el.name,
+				value: el.name,
+			})),
+			filterMode: 'tree',
+			filterSearch: true,
+			onFilter: (el: unknown, rec) =>
+				categoriesData?.data
+					?.find((el: TCategory) => el.id === rec.product.category_id)
+					?.name.startsWith(el),
 		},
 		{
 			title: t('storageTableCol3'),
-			dataIndex: 'name',
+			dataIndex: 'brand',
+			render: (_, rec) =>
+				brandsData?.data?.find((el: TBrand) => el.id === rec.product.brand_id)
+					?.name,
+			filters: brandsData?.data?.map((el: TProducts) => ({
+				text: el.name,
+				value: el.name,
+			})),
+			filterMode: 'tree',
+			filterSearch: true,
+			onFilter: (el: unknown, rec) =>
+				brandsData?.data
+					?.find((el: TBrand) => el.id === rec.product.brand_id)
+					?.name.startsWith(el),
 		},
 		{
 			title: t('storageTableCol4'),
-			dataIndex: 'price',
+			dataIndex: 'purchased',
 		},
 		{
 			title: t('storageTableCol5'),
-			dataIndex: 'quantity',
+			dataIndex: 'sales',
 		},
 		{
 			title: t('storageTableCol6'),
-			dataIndex: 'name',
-		},
-		{
-			title: t('actions'),
-			dataIndex: 'actions',
-			render: () => (
-				<div className={styles.actions}>
-					<UiButton>
-						<AiOutlineEdit size='22' />
-						{t('edit')}
-					</UiButton>
-					<UiPopconfirm title={t('beforeDelete')} onConfirm={handleDelete}>
-						<UiButton style={{ background: 'red' }}>
-							<FaDeleteLeft size='22' />
-							{t('delete')}
-							{/* <Delete route='courses' id={rec.id} /> */}
-						</UiButton>
-					</UiPopconfirm>
-				</div>
-			),
+			dataIndex: 'quantity',
 		},
 	]
 
 	return (
 		<UiTable
 			columns={columns}
-			dataSource={[{}]}
+			dataSource={storageData?.data}
 			pagination={{
 				total: 10,
-				current: 1,
+				current: page,
 				showSizeChanger: false,
 				defaultPageSize: 10,
-				// onChange: e => setPage(e),
+				onChange: e => setPage(e),
 			}}
 			rowKey={e => e.id}
 		/>
