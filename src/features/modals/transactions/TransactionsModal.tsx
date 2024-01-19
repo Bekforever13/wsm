@@ -94,7 +94,7 @@ const TransactionsModal: FC = () => {
 					name='product_id'
 					label={t('transactionsTableCol1')}
 					rules={[
-						{ required: true, message: t('transactionsMessageRequired') },
+						{ required: true, message: t('transactionsMessageRequired1') },
 					]}
 				>
 					<UiSelect
@@ -106,7 +106,7 @@ const TransactionsModal: FC = () => {
 					name='payment_type'
 					label={t('transactionsTableCol3')}
 					rules={[
-						{ required: true, message: t('transactionsMessageRequired') },
+						{ required: true, message: t('transactionsMessageRequired2') },
 					]}
 				>
 					<UiSelect
@@ -118,7 +118,7 @@ const TransactionsModal: FC = () => {
 					name='transaction_type'
 					label={t('transactionsTableCol2')}
 					rules={[
-						{ required: true, message: t('transactionsMessageRequired') },
+						{ required: true, message: t('transactionsMessageRequired3') },
 					]}
 				>
 					<UiSelect
@@ -130,7 +130,7 @@ const TransactionsModal: FC = () => {
 					name='price'
 					label={t('transactionsTableCol4')}
 					rules={[
-						{ required: true, message: t('transactionsMessageRequired') },
+						{ required: true, message: t('transactionsMessageRequired4') },
 					]}
 				>
 					<UiInput type='number' placeholder={t('transactionsTableCol4')} />
@@ -139,7 +139,7 @@ const TransactionsModal: FC = () => {
 					name='quantity'
 					label={t('transactionsTableCol5')}
 					rules={[
-						{ required: true, message: t('transactionsMessageRequired') },
+						{ required: true, message: t('transactionsMessageRequired5') },
 					]}
 				>
 					<UiInput type='number' placeholder={t('transactionsTableCol5')} />
@@ -149,7 +149,7 @@ const TransactionsModal: FC = () => {
 						name='date'
 						label={t('transactionsTableCol6')}
 						rules={[
-							{ required: true, message: t('transactionsMessageRequired') },
+							{ required: true, message: t('transactionsMessageRequired6') },
 						]}
 					>
 						<DatePicker showTime />

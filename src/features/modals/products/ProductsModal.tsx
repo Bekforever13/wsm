@@ -84,21 +84,21 @@ const ProductsModal: FC = () => {
 				<Form.Item
 					name='name'
 					label={t('productsTableCol1')}
-					rules={[{ required: true, message: t('productsMessageRequired') }]}
+					rules={[{ required: true, message: t('productsMessageRequired1') }]}
 				>
 					<UiInput placeholder={t('name')} />
 				</Form.Item>
 				<Form.Item
 					name='category_id'
 					label={t('productsTableCol2')}
-					rules={[{ required: true, message: t('productsMessageRequired') }]}
+					rules={[{ required: true, message: t('productsMessageRequired2') }]}
 				>
 					<UiSelect placeholder={t('select')} options={categoriesOptions} />
 				</Form.Item>
 				<Form.Item
 					name='brand_id'
 					label={t('productsTableCol3')}
-					rules={[{ required: true, message: t('productsMessageRequired') }]}
+					rules={[{ required: true, message: t('productsMessageRequired3') }]}
 				>
 					<UiSelect placeholder={t('select')} options={brandsOptions} />
 				</Form.Item>

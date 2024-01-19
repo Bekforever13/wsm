@@ -31,14 +31,16 @@ const Auth: FC = () => {
 					<Form.Item
 						label='Телефон'
 						name='phone'
-						rules={[{ required: true, message: 'Пожалуйста, заполните поле.' }]}
+						rules={[
+							{ required: true, message: 'Пожалуйста, введите телефон.' },
+						]}
 					>
 						<MaskedInput mask={'+{998}00 000 00 00'} />
 					</Form.Item>
 					<Form.Item
 						label='Пароль'
 						name='password'
-						rules={[{ required: true, message: 'Пожалуйста, заполните поле.' }]}
+						rules={[{ required: true, message: 'Пожалуйста, введите пароль.' }]}
 					>
 						<Input.Password />
 					</Form.Item>
