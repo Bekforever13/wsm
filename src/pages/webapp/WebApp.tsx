@@ -79,7 +79,7 @@ const WebApp: FC = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Добавление продажи</h2>
-			<p>id:{tg.initData.id}</p>
+			<p>{JSON.stringify(tg.initData)}</p>
 			<Form layout='vertical' form={form} onFinish={handleSubmit}>
 				<Form.Item
 					name='product_id'
@@ -93,7 +93,7 @@ const WebApp: FC = () => {
 					label='Тип оплаты'
 					rules={[{ required: true, message: 'Выберите тип оплаты' }]}
 				>
-					<UiSelect options={paymentOptions} placeholder='' />
+					<UiSelect options={paymentOptions} placeholder='Тип оплаты' />
 				</Form.Item>
 				<Form.Item
 					name='company_id'
