@@ -79,7 +79,7 @@ const WebApp: FC = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Добавление продажи</h2>
-			<p>{JSON.stringify(tg?.initData?.user?.id)}</p>
+			<p>{tg?.initData?.user?.id}</p>
 			<Form layout='vertical' form={form} onFinish={handleSubmit}>
 				<Form.Item
 					name='product_id'
