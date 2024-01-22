@@ -80,7 +80,7 @@ const WebApp: FC = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Добавление продажи</h2>
-			<button onClick={() => alert(tg?.initData?.user?.id)}>alert</button>
+			<button onClick={() => alert(tg?.initData)}>alert</button>
 			{/* <p>{userId}</p> */}
 			<Form layout='vertical' form={form} onFinish={handleSubmit}>
 				<Form.Item
