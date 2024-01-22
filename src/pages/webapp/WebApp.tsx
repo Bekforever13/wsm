@@ -33,9 +33,10 @@ const WebApp: FC = () => {
 	]
 
 	useEffect(() => {
-		console.log(tg.initData)
-		setUserId(0)
-	}, [tg])
+		if (userId) {
+			setUserId(tg.initData.user.id)
+		}
+	}, [tg.initData.user.id])
 
 	const handleSubmit = (values: TTransactionsFormData) => {
 		try {
@@ -79,7 +80,7 @@ const WebApp: FC = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Добавление продажи</h2>
-			<p>{tg?.initData?.user?.id}</p>
+			<p>{userId}</p>
 			<Form layout='vertical' form={form} onFinish={handleSubmit}>
 				<Form.Item
 					name='product_id'
