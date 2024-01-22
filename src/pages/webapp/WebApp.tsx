@@ -24,7 +24,7 @@ const WebApp: FC = () => {
 	const { data: companyData } = useGetCompanies()
 	const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
 	const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
-	const [userId, setUserId] = useState<number | undefined>()
+	// const [userId, setUserId] = useState<number | undefined>()
 
 	const paymentOptions = [
 		{ label: 'Наличка', value: 1 },
@@ -32,11 +32,11 @@ const WebApp: FC = () => {
 		{ label: 'Кредит', value: 3 },
 	]
 
-	useEffect(() => {
-		if (tg?.initData?.user?.id) {
-			setUserId(tg.initData.user.id)
-		}
-	}, [tg?.initData?.user?.id])
+	// useEffect(() => {
+	// 	if (tg?.initData?.user?.id) {
+	// 		setUserId(tg.initData.user.id)
+	// 	}
+	// }, [tg?.initData?.user?.id])
 
 	const handleSubmit = (values: TTransactionsFormData) => {
 		try {
@@ -46,7 +46,7 @@ const WebApp: FC = () => {
 					Authorization:
 						'Basic ' +
 						btoa(
-							userId +
+							tg?.initData?.user?.id +
 								':' +
 								'$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y'
 						),
@@ -80,7 +80,8 @@ const WebApp: FC = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Добавление продажи</h2>
-			<p>{userId}</p>
+			<button onClick={() => alert(tg?.initData?.user?.id)}>alert</button>
+			{/* <p>{userId}</p> */}
 			<Form layout='vertical' form={form} onFinish={handleSubmit}>
 				<Form.Item
 					name='product_id'
