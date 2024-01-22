@@ -32,11 +32,12 @@ const WebApp: FC = () => {
 		{ label: 'Кредит', value: 3 },
 	]
 
-	// useEffect(() => {
-	// 	if (tg?.initData?.user?.id) {
-	// 		setUserId(tg.initData.user.id)
-	// 	}
-	// }, [tg?.initData?.user?.id])
+	useEffect(() => {
+		if (tg?.initData) {
+			alert(tg.initData.user)
+			// setUserId(tg.initData.user.id)
+		}
+	}, [tg?.initData])
 
 	const handleSubmit = (values: TTransactionsFormData) => {
 		try {
@@ -80,7 +81,9 @@ const WebApp: FC = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Добавление продажи</h2>
-			<button onClick={() => alert(JSON.parse(JSON.stringify(tg?.initData))?.user)}>
+			<button
+				onClick={() => alert(JSON.parse(JSON.stringify(tg?.initData))?.user)}
+			>
 				alert
 			</button>
 			{/* <p>{userId}</p> */}
