@@ -5,6 +5,7 @@ export const ru = {
 		transactions: 'Транзакции',
 		products: 'Товары',
 		categories: 'Категории',
+		companies: 'Компании',
 		brands: 'Бренды',
 		storage: 'Склад',
 		users: 'Пользователи',
@@ -21,15 +22,24 @@ export const ru = {
 		transactionsTableCol4: 'Цена',
 		transactionsTableCol5: 'Количество',
 		transactionsTableCol6: 'Дата',
+		transactionsTableCol7: 'Итого',
+		transactionsTableCol8: 'Компания',
 		transactionsMessageRequired1: 'Введите название транзакции!',
 		transactionsMessageRequired2: 'Выберите тип оплаты!',
 		transactionsMessageRequired3: 'Выберите тип транзакции!',
 		transactionsMessageRequired4: 'Введите цену транзакции!',
 		transactionsMessageRequired5: 'Введите количество транзакции!',
 		transactionsMessageRequired6: 'Выберите дату транзакции!',
+		transactionsMessageRequired8: 'Выберите компанию!',
 		transactionsMessageCreateSuccess: 'Транзакция успешно создано!',
 		transactionsMessageEditSuccess: 'Транзакция успешно изменено!',
 		transactionsMessageDeleteSuccess: 'Транзакция успешно удалено!',
+
+		// companies page
+		companiesTableCol1: 'Название компании',
+		companiesMessageCreateSuccess: 'Компания успешно создано!',
+		companiesMessageEditSuccess: 'Компания успешно изменено!',
+		companiesMessageDeleteSuccess: 'Компания успешно удалено!',
 
 		// products page
 		productsTableCol1: 'Название товара',

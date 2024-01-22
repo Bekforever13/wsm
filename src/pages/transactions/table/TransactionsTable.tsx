@@ -1,7 +1,6 @@
 import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ColumnsType } from 'antd/es/table'
-import { TransactionsTableActions } from './TransactionsTableActions'
 import { UiTable } from '@/components/table/UiTable'
 import { TransactionsModal } from '@/features/modals'
 import { TTransactions, useGetTransactions } from '@/features/queries'
@@ -50,9 +49,8 @@ const TransactionsTable: FC = () => {
 			dataIndex: 'date',
 		},
 		{
-			title: t('actions'),
-			dataIndex: 'actions',
-			render: (_, rec) => <TransactionsTableActions rec={rec} />,
+			title: t('transactionsTableCol7'),
+			dataIndex: 'total',
 		},
 	]
 

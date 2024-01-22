@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { useGetProducts } from '@/features/queries/products/products.api'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TransactionsStore } from '@/app/store/transactionsStore'
-import {
-	useCreateTransactions,
-	useEditTransactions,
-} from '@/features/queries/transactions/transactions.api'
+import { useCreateTransactions } from '@/features/queries/transactions/transactions.api'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
 import { formattedDate } from '@/shared/utils/Utils'
 import { TProducts } from '@/features/queries/products/products.types'
+import { useGetCompanies } from '@/features/queries/company/companies.api'
+import { TCompany } from '@/features/queries/company/companies.types'
 
 type TOptions = {
 	label: string
@@ -21,16 +20,12 @@ type TOptions = {
 const TransactionsModal: FC = () => {
 	const [form] = Form.useForm()
 	const { t } = useTranslation()
-	const {
-		transactionsToEdit,
-		transactionsModal,
-		setTransactionsToEdit,
-		setTransactionsModal,
-	} = TransactionsStore(s => s)
+	const { transactionsModal, setTransactionsModal } = TransactionsStore(s => s)
 	const { mutate: createTransactions } = useCreateTransactions()
-	const { mutate: editTransactions } = useEditTransactions()
 	const { data: productsData } = useGetProducts()
+	const { data: companyData } = useGetCompanies()
 	const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
+	const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
 
 	const paymentOptions = [
 		{ label: t('cash'), value: 1 },
@@ -45,34 +40,13 @@ const TransactionsModal: FC = () => {
 
 	const handleClose = () => {
 		setTransactionsModal(false)
-		setTransactionsToEdit(null)
 		form.resetFields()
 	}
 
 	const handleSubmit = async (values: TTransactionsFormData) => {
-		console.log(values)
-		if (transactionsToEdit?.id) {
-			await editTransactions({ id: transactionsToEdit?.id, ...values })
-			await handleClose()
-		} else {
-			await createTransactions({ ...values, date: formattedDate(values?.date) })
-			await handleClose()
-		}
+		await createTransactions({ ...values, date: formattedDate(values?.date) })
+		await handleClose()
 	}
-
-	useEffect(() => {
-		if (transactionsToEdit) {
-			console.log('tr to edit: ', transactionsToEdit)
-			form.setFieldValue('product_id', transactionsToEdit.product_id)
-			form.setFieldValue('payment_type', transactionsToEdit.payment_type)
-			form.setFieldValue(
-				'transaction_type',
-				transactionsToEdit.transaction_type
-			)
-			form.setFieldValue('price', transactionsToEdit.price)
-			form.setFieldValue('quantity', transactionsToEdit.quantity)
-		}
-	}, [transactionsToEdit])
 
 	useEffect(() => {
 		if (productsData) {
@@ -81,6 +55,14 @@ const TransactionsModal: FC = () => {
 			)
 		}
 	}, [productsData])
+
+	useEffect(() => {
+		if (companyData) {
+			companyData.data.map((el: TCompany) =>
+				setCompanyOptions(prev => [...prev, { value: el.id, label: el.name }])
+			)
+		}
+	}, [companyData])
 
 	return (
 		<Drawer
@@ -127,6 +109,18 @@ const TransactionsModal: FC = () => {
 					/>
 				</Form.Item>
 				<Form.Item
+					name='company_id'
+					label={t('transactionsTableCol8')}
+					rules={[
+						{ required: true, message: t('transactionsMessageRequired8') },
+					]}
+				>
+					<UiSelect
+						options={companyOptions}
+						placeholder={t('transactionsTableCol8')}
+					/>
+				</Form.Item>
+				<Form.Item
 					name='price'
 					label={t('transactionsTableCol4')}
 					rules={[
@@ -144,18 +138,16 @@ const TransactionsModal: FC = () => {
 				>
 					<UiInput type='number' placeholder={t('transactionsTableCol5')} />
 				</Form.Item>
-				{!transactionsToEdit && (
-					<Form.Item
-						name='date'
-						label={t('transactionsTableCol6')}
-						rules={[
-							{ required: true, message: t('transactionsMessageRequired6') },
-						]}
-					>
-						<DatePicker showTime />
-					</Form.Item>
-				)}
-				<UiButton>{transactionsToEdit ? t('save') : t('add')}</UiButton>
+				<Form.Item
+					name='date'
+					label={t('transactionsTableCol6')}
+					rules={[
+						{ required: true, message: t('transactionsMessageRequired6') },
+					]}
+				>
+					<DatePicker showTime />
+				</Form.Item>
+				<UiButton>{t('add')}</UiButton>
 			</Form>
 		</Drawer>
 	)

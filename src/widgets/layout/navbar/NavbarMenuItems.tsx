@@ -7,6 +7,7 @@ import { AiOutlineHome, AiFillHdd } from 'react-icons/ai'
 import { TbBrandSketch, TbCategory2 } from 'react-icons/tb'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { FaRegObjectUngroup } from 'react-icons/fa6'
 
 const NavbarMenuItems: FC = () => {
 	const { t } = useTranslation()
@@ -22,6 +23,11 @@ const NavbarMenuItems: FC = () => {
 			label: t('transactions'),
 		},
 		{ pathname: '/products', icon: <FaListUl />, label: t('products') },
+		{
+			pathname: '/companies',
+			icon: <FaRegObjectUngroup />,
+			label: t('companies'),
+		},
 		{
 			pathname: '/categories',
 			icon: <TbCategory2 />,

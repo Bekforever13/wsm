@@ -11,6 +11,8 @@ import {
 	Storage,
 	Auth,
 	Users,
+	Companies,
+	WebApp,
 } from '@/pages'
 
 const App: FC = () => {
@@ -21,11 +23,13 @@ const App: FC = () => {
 				<Route path='/transactions' element={<Transactions />} />
 				<Route path='/products' element={<Products />} />
 				<Route path='/categories' element={<Categories />} />
+				<Route path='/companies' element={<Companies />} />
 				<Route path='/brands' element={<Brands />} />
 				<Route path='/storage' element={<Storage />} />
 				<Route path='/users' element={<Users />} />
 			</Route>
 			<Route path='/auth' element={<Auth />} />
+			<Route path='/webapp' element={<WebApp />} />
 		</Routes>
 	)
 }

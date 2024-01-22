@@ -5,6 +5,7 @@ export const qq = {
 		transactions: 'Транзакция',
 		products: 'Өнимлер',
 		categories: 'Тайпалар',
+		companies: 'Компаниялар',
 		brands: 'Брендлар',
 		storage: 'Склад',
 		users: 'Пайдаланыўшылар',
@@ -21,6 +22,7 @@ export const qq = {
 		transactionsTableCol4: 'Баҳасы',
 		transactionsTableCol5: 'Муғдары',
 		transactionsTableCol6: 'Сане',
+		transactionsTableCol7: 'Итого',
 		transactionsMessageRequired1: 'Транзакция атын жазың!',
 		transactionsMessageRequired2: 'Транзакция түрин сайлаң!',
 		transactionsMessageRequired3: 'Транзакция төлеўин сайлаң!',
@@ -30,6 +32,12 @@ export const qq = {
 		transactionsMessageCreateSuccess: 'Транзакция жаратылды!',
 		transactionsMessageEditSuccess: 'Транзакция өзгертилди!',
 		transactionsMessageDeleteSuccess: 'Транзакция өширилди!',
+
+		// companies page
+		companiesTableCol1: 'Компания аты',
+		companiesMessageCreateSuccess: 'Компания успешно создано!',
+		companiesMessageEditSuccess: 'Компания успешно изменено!',
+		companiesMessageDeleteSuccess: 'Компания успешно удалено!',
 
 		// products page
 		productsTableCol1: 'Өним аты',

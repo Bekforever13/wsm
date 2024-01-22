@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { BrandStore, CategoriesStore, ProductsStore } from '@/app/store'
 import { TransactionsStore } from '@/app/store/transactionsStore'
+import { CompaniesStore } from '@/app/store/companiesStore'
 
 const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
 	const { t } = useTranslation()
@@ -14,6 +15,7 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
 	const { setBrandsModal } = BrandStore(s => s)
 	const { setProductsModal } = ProductsStore(s => s)
 	const { setTransactionsModal } = TransactionsStore(s => s)
+	const { setCompaniesModal } = CompaniesStore(s => s)
 
 	const handleClickButton = () => {
 		switch (route) {
@@ -28,6 +30,9 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
 				break
 			case 'transactions':
 				setTransactionsModal(true)
+				break
+			case 'companies':
+				setCompaniesModal(true)
 				break
 		}
 	}

@@ -7,6 +7,7 @@ import {
 	deleteTransactions,
 } from './transactions.services'
 import { useTranslation } from 'react-i18next'
+import { TTransactionsError } from '..'
 
 const useGetTransactions = () =>
 	useQuery({
@@ -24,7 +25,8 @@ const useCreateTransactions = () => {
 			client.invalidateQueries({ queryKey: ['storage'] })
 			message.success(t('transactionsMessageCreateSuccess'))
 		},
-		onError: () => message.error('Произошла ошибка при создании транзакции'),
+		onError: (err: TTransactionsError) =>
+			message.error(err?.response?.data?.data),
 	})
 }
 const useEditTransactions = () => {

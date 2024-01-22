@@ -29,4 +29,13 @@ export type TTransactions = {
 	price: number
 	quantity: number
 	date: string
+	total: number | null
+}
+
+export type TTransactionsError = {
+	response: {
+		data: {
+			data: string
+		}
+	}
 }
