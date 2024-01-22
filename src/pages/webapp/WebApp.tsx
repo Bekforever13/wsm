@@ -36,7 +36,7 @@ const WebApp: FC = () => {
 		if (tg?.initData?.user?.id) {
 			setUserId(tg.initData.user.id)
 		}
-	}, [tg.initData.user.id])
+	}, [tg?.initData?.user?.id])
 
 	const handleSubmit = (values: TTransactionsFormData) => {
 		try {
