@@ -33,7 +33,7 @@ const WebApp: FC = () => {
 	]
 
 	useEffect(() => {
-		if (userId) {
+		if (tg?.initData?.user?.id) {
 			setUserId(tg.initData.user.id)
 		}
 	}, [tg.initData.user.id])
