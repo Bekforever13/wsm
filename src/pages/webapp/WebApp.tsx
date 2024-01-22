@@ -78,7 +78,8 @@ const WebApp: FC = () => {
 	}, [companyData])
 	return (
 		<div className={styles.container}>
-			<h1>Добавление продажи</h1>
+			<h2>Добавление продажи</h2>
+			<p>id:{tg.initData.id}</p>
 			<Form layout='vertical' form={form} onFinish={handleSubmit}>
 				<Form.Item
 					name='product_id'
