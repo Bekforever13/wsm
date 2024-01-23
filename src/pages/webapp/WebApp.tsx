@@ -18,6 +18,7 @@ type TOptions = {
 }
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const tg = window.Telegram.WebApp
 
 const WebApp: FC = () => {
@@ -48,6 +49,8 @@ const WebApp: FC = () => {
       setWebappUserID(data.user.id)
     }
   }, [tg?.initData])
+  // setWebappUserID(877286357)
+  //   }, [])
 
   const handleSubmit = (values: TTransactionsFormData) => {
     alert(values)

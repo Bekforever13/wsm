@@ -3,9 +3,8 @@ import { formattedDate } from '@/shared/utils/Utils'
 import { WebappStore } from '@/app/store/webappStore'
 import { TTransactionsFormData } from '..'
 
-const { webappUserId } = WebappStore()
-
 export const fetchTelegramProducts = async () => {
+  const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
     url: 'https://stockroom.karsoft.uz/api/telegram/products',
     method: 'GET',
@@ -19,6 +18,7 @@ export const fetchTelegramProducts = async () => {
 }
 
 export const fetchTelegramCompanies = async () => {
+  const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
     url: 'https://stockroom.karsoft.uz/api/telegram/companies',
     method: 'GET',
@@ -32,6 +32,7 @@ export const fetchTelegramCompanies = async () => {
 }
 
 export const createTelegramTransaction = async (formData: TTransactionsFormData) => {
+  const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
     url: '/telegram/transactions',
     method: 'POST',
