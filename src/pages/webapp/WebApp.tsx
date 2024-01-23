@@ -1,13 +1,15 @@
 import { FC, useEffect, useState } from 'react'
 import { UiButton, UiInput } from '@/components'
 import { DatePicker, Form } from 'antd'
-import { useGetProducts } from '@/features/queries/products/products.api'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
 import { TProducts } from '@/features/queries/products/products.types'
-import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
 import styles from './WebApp.module.scss'
+import {
+  useGetTelegramCompanies,
+  useGetTelegramProducts,
+} from '@/features/queries/webapp/webapp.api'
 
 type TOptions = {
   label: string
@@ -19,8 +21,8 @@ const tg = window.Telegram.WebApp
 
 const WebApp: FC = () => {
   const [form] = Form.useForm()
-  const { data: productsData } = useGetProducts()
-  const { data: companyData } = useGetCompanies()
+  const { data: productsData } = useGetTelegramProducts()
+  const { data: companyData } = useGetTelegramCompanies()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
   const [userId, setUserId] = useState<number | undefined>()
