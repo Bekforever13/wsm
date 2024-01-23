@@ -93,7 +93,7 @@ const WebApp: FC = () => {
           <UiSelect options={companyOptions} placeholder="Выберите компанию" />
         </Form.Item>
         <Form.Item name="price" label="Цена" rules={[{ required: true, message: 'Введите цену' }]}>
-          <UiInput type="number" disabled placeholder="" />
+          <UiInput type="number" placeholder="" />
         </Form.Item>
         <Form.Item name="quantity" label="Количество" rules={[{ required: true, message: '' }]}>
           <UiInput type="number" placeholder="Введите количество" />

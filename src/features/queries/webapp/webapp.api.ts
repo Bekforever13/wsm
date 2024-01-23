@@ -7,17 +7,23 @@ import {
   fetchTelegramCompanies,
   fetchTelegramProducts,
 } from './webapp.services'
+import { WebappStore } from '@/app/store/webappStore'
 
-const useGetTelegramProducts = () =>
-  useQuery({
+const useGetTelegramProducts = () => {
+  const { webappUserId } = WebappStore((s) => s)
+  return useQuery({
     queryFn: () => fetchTelegramProducts(),
-    queryKey: ['products'],
+    queryKey: ['products', webappUserId],
   })
-const useGetTelegramCompanies = () =>
-  useQuery({
+}
+
+const useGetTelegramCompanies = () => {
+  const { webappUserId } = WebappStore((s) => s)
+  return useQuery({
     queryFn: () => fetchTelegramCompanies(),
-    queryKey: ['companies'],
+    queryKey: ['companies', webappUserId],
   })
+}
 
 const useCreateTelegramTransaction = () => {
   const client = useQueryClient()
