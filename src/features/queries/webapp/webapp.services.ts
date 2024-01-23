@@ -7,7 +7,7 @@ const { webappUserId } = WebappStore()
 
 export const fetchTelegramProducts = async () => {
   const config: AxiosRequestConfig = {
-    url: '/telegram/products',
+    url: 'https://stockroom.karsoft.uz/api/telegram/products',
     method: 'GET',
     auth: {
       username: webappUserId.toString(),
@@ -20,7 +20,7 @@ export const fetchTelegramProducts = async () => {
 
 export const fetchTelegramCompanies = async () => {
   const config: AxiosRequestConfig = {
-    url: '/telegram/companies',
+    url: 'https://stockroom.karsoft.uz/api/telegram/companies',
     method: 'GET',
     auth: {
       username: webappUserId.toString(),
