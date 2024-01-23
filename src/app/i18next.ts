@@ -6,14 +6,14 @@ import { qq, ru } from '@/app/locales'
 const lang = localStorage.getItem('lang_wsm')
 
 i18n.use(initReactI18next).init({
-	resources: {
-		qq,
-		ru,
-	},
-	lng: lang || 'ru',
-	fallbackLng: lang || 'ru',
-	react: { useSuspense: true },
-	interpolation: { escapeValue: false },
+  resources: {
+    qq,
+    ru,
+  },
+  lng: lang || 'ru',
+  fallbackLng: lang || 'ru',
+  react: { useSuspense: true },
+  interpolation: { escapeValue: false },
 })
 
 export default i18n
