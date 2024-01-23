@@ -55,20 +55,20 @@ const WebApp: FC = () => {
   }
 
   useEffect(() => {
-    if (productsData) {
+    if (webappUserId && productsData) {
       productsData.data.map((el: TProducts) =>
         setProductsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
       )
     }
-  }, [productsData])
+  }, [productsData, webappUserId])
 
   useEffect(() => {
-    if (companyData) {
+    if (webappUserId && companyData) {
       companyData.data.map((el: TCompany) =>
         setCompanyOptions((prev) => [...prev, { value: el.id, label: el.name }]),
       )
     }
-  }, [companyData])
+  }, [companyData, webappUserId])
 
   return (
     <div className={styles.container}>
