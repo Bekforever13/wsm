@@ -5,12 +5,12 @@ import { TTransactionsFormData } from '..'
 import { TTelegramCompaniesData, TTelegramProductsData } from './webapp.types'
 
 export const fetchTelegramProducts = async (): Promise<TTelegramProductsData> => {
-  const { webappUserId } = WebappStore()
+  // const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
     url: 'https://stockroom.karsoft.uz/api/telegram/products',
     method: 'GET',
     auth: {
-      username: webappUserId.toString(),
+      username: '877286357',
       password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
     },
   }
@@ -19,12 +19,12 @@ export const fetchTelegramProducts = async (): Promise<TTelegramProductsData> =>
 }
 
 export const fetchTelegramCompanies = async (): Promise<TTelegramCompaniesData> => {
-  const { webappUserId } = WebappStore()
+  // const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
     url: 'https://stockroom.karsoft.uz/api/telegram/companies',
     method: 'GET',
     auth: {
-      username: webappUserId.toString(),
+      username: '877286357',
       password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
     },
   }
