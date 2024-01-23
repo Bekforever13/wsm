@@ -11,7 +11,7 @@ export const fetchTelegramProducts = async (): Promise<TTelegramProductsData> =>
       url: 'https://stockroom.karsoft.uz/api/telegram/products',
       method: 'GET',
       auth: {
-        username: '877286357',
+        username: webappUserId.toString(),
         password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
       },
     }
