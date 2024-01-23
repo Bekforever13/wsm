@@ -10,7 +10,6 @@ import {
   useGetTelegramCompanies,
   useGetTelegramProducts,
 } from '@/features/queries/webapp/webapp.api'
-import { WebappStore } from '@/app/store/webappStore'
 
 type TOptions = {
   label: string
@@ -23,11 +22,11 @@ const tg = window.Telegram.WebApp
 
 const WebApp: FC = () => {
   const [form] = Form.useForm()
-  const { setWebappUserID, webappUserId } = WebappStore((s) => s)
-  const { data: productsData } = useGetTelegramProducts()
-  const { data: companyData } = useGetTelegramCompanies()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
+  const [userId, setUserId] = useState<number>(0)
+  const { data: companyData } = useGetTelegramCompanies(userId)
+  const { data: productsData } = useGetTelegramProducts(userId)
 
   const paymentOptions = [
     { label: 'Наличка', value: 1 },
@@ -46,7 +45,7 @@ const WebApp: FC = () => {
         data[key] = value
       })
       data.user = JSON.parse(decodeURIComponent(data.user))
-      setWebappUserID(data.user.id)
+      setUserId(data.user.id)
     }
   }, [tg?.initData])
 
@@ -73,7 +72,7 @@ const WebApp: FC = () => {
   return (
     <div className={styles.container}>
       <h2>Добавление продажи</h2>
-      <button onClick={() => alert(webappUserId)}>alert</button>
+      <button onClick={() => alert(userId)}>alert</button>
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <Form.Item name="product_id" label="Продукт" rules={[{ required: true, message: '' }]}>
           <UiSelect options={productsOptions} placeholder="Выберите продукт" />

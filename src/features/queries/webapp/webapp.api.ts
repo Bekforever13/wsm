@@ -7,22 +7,19 @@ import {
   fetchTelegramCompanies,
   fetchTelegramProducts,
 } from './webapp.services'
-import { WebappStore } from '@/app/store/webappStore'
 
-const useGetTelegramProducts = () => {
-  const { webappUserId } = WebappStore((s) => s)
+const useGetTelegramProducts = (id: number) => {
   return useQuery({
-    queryFn: () => fetchTelegramProducts(),
-    queryKey: ['products', webappUserId],
+    queryFn: () => fetchTelegramProducts(id),
+    queryKey: ['products', id],
     refetchInterval: 1000,
   })
 }
 
-const useGetTelegramCompanies = () => {
-  const { webappUserId } = WebappStore((s) => s)
+const useGetTelegramCompanies = (id: number) => {
   return useQuery({
-    queryFn: () => fetchTelegramCompanies(),
-    queryKey: ['companies', webappUserId],
+    queryFn: () => fetchTelegramCompanies(id),
+    queryKey: ['companies', id],
     refetchInterval: 1000,
   })
 }

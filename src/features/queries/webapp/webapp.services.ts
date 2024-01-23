@@ -4,14 +4,13 @@ import { WebappStore } from '@/app/store/webappStore'
 import { TTransactionsFormData } from '..'
 import { TTelegramCompaniesData, TTelegramProductsData } from './webapp.types'
 
-export const fetchTelegramProducts = async (): Promise<TTelegramProductsData> => {
-  const { webappUserId } = WebappStore()
-  if (webappUserId) {
+export const fetchTelegramProducts = async (id: number): Promise<TTelegramProductsData> => {
+  if (id) {
     const config: AxiosRequestConfig = {
       url: 'https://stockroom.karsoft.uz/api/telegram/products',
       method: 'GET',
       auth: {
-        username: webappUserId.toString(),
+        username: id.toString(),
         password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
       },
     }
@@ -21,14 +20,13 @@ export const fetchTelegramProducts = async (): Promise<TTelegramProductsData> =>
   throw new Error('User id is not found')
 }
 
-export const fetchTelegramCompanies = async (): Promise<TTelegramCompaniesData> => {
-  const { webappUserId } = WebappStore()
-  if (webappUserId) {
+export const fetchTelegramCompanies = async (id: number): Promise<TTelegramCompaniesData> => {
+  if (id) {
     const config: AxiosRequestConfig = {
       url: 'https://stockroom.karsoft.uz/api/telegram/companies',
       method: 'GET',
       auth: {
-        username: webappUserId.toString(),
+        username: id.toString(),
         password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
       },
     }
