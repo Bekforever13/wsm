@@ -60,7 +60,7 @@ const WebApp: FC = () => {
         setProductsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
       )
     }
-  }, [productsData?.data.length])
+  }, [productsData])
 
   useEffect(() => {
     if (companyData) {
@@ -68,7 +68,7 @@ const WebApp: FC = () => {
         setCompanyOptions((prev) => [...prev, { value: el.id, label: el.name }]),
       )
     }
-  }, [companyData?.data.length])
+  }, [companyData])
 
   return (
     <div className={styles.container}>
