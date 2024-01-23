@@ -50,7 +50,7 @@ const WebApp: FC = () => {
   }, [tg?.initData])
 
   const handleSubmit = (values: TTransactionsFormData) => {
-    alert(values)
+    alert(JSON.stringify(values))
   }
 
   useEffect(() => {
