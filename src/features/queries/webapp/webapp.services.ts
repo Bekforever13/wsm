@@ -2,8 +2,9 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { formattedDate } from '@/shared/utils/Utils'
 import { WebappStore } from '@/app/store/webappStore'
 import { TTransactionsFormData } from '..'
+import { TTelegramCompaniesData, TTelegramProductsData } from './webapp.types'
 
-export const fetchTelegramProducts = async () => {
+export const fetchTelegramProducts = async (): Promise<TTelegramProductsData> => {
   const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
     url: 'https://stockroom.karsoft.uz/api/telegram/products',
@@ -17,7 +18,7 @@ export const fetchTelegramProducts = async () => {
   return res.data
 }
 
-export const fetchTelegramCompanies = async () => {
+export const fetchTelegramCompanies = async (): Promise<TTelegramCompaniesData> => {
   const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
     url: 'https://stockroom.karsoft.uz/api/telegram/companies',

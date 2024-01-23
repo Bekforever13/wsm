@@ -49,8 +49,6 @@ const WebApp: FC = () => {
       setWebappUserID(data.user.id)
     }
   }, [tg?.initData])
-  // setWebappUserID(877286357)
-  //   }, [])
 
   const handleSubmit = (values: TTransactionsFormData) => {
     alert(values)
