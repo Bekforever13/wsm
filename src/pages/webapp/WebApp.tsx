@@ -23,11 +23,11 @@ const tg = window.Telegram.WebApp
 
 const WebApp: FC = () => {
   const [form] = Form.useForm()
+  const { setWebappUserID, webappUserId } = WebappStore((s) => s)
   const { data: productsData } = useGetTelegramProducts()
   const { data: companyData } = useGetTelegramCompanies()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
-  const { setWebappUserID, webappUserId } = WebappStore((s) => s)
 
   const paymentOptions = [
     { label: 'Наличка', value: 1 },
@@ -55,20 +55,20 @@ const WebApp: FC = () => {
   }
 
   useEffect(() => {
-    if (webappUserId && productsData) {
+    if (productsData) {
       productsData.data.map((el: TProducts) =>
         setProductsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
       )
     }
-  }, [productsData, webappUserId])
+  }, [productsData?.data.length])
 
   useEffect(() => {
-    if (webappUserId && companyData) {
+    if (companyData) {
       companyData.data.map((el: TCompany) =>
         setCompanyOptions((prev) => [...prev, { value: el.id, label: el.name }]),
       )
     }
-  }, [companyData, webappUserId])
+  }, [companyData?.data.length])
 
   return (
     <div className={styles.container}>
