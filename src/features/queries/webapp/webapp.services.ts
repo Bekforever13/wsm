@@ -1,19 +1,37 @@
-import { axiosInterceptor } from '@/shared/lib/api'
 import axios, { AxiosRequestConfig } from 'axios'
-import { TTelegramTransactionsFormData } from './webapp.types'
 import { formattedDate } from '@/shared/utils/Utils'
+import { WebappStore } from '@/app/store/webappStore'
+import { TTransactionsFormData } from '..'
+
+const { webappUserId } = WebappStore()
 
 export const fetchTelegramProducts = async () => {
-  const res = await axiosInterceptor.get('/telegram/products')
+  const config: AxiosRequestConfig = {
+    url: '/telegram/products',
+    method: 'GET',
+    auth: {
+      username: webappUserId.toString(),
+      password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
+    },
+  }
+  const res = await axios(config)
   return res.data
 }
 
 export const fetchTelegramCompanies = async () => {
-  const res = await axiosInterceptor.get('/telegram/companies')
+  const config: AxiosRequestConfig = {
+    url: '/telegram/companies',
+    method: 'GET',
+    auth: {
+      username: webappUserId.toString(),
+      password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
+    },
+  }
+  const res = await axios(config)
   return res.data
 }
 
-export const createTelegramTransaction = async (formData: TTelegramTransactionsFormData) => {
+export const createTelegramTransaction = async (formData: TTransactionsFormData) => {
   const config: AxiosRequestConfig = {
     url: '/telegram/transactions',
     method: 'POST',
@@ -23,7 +41,7 @@ export const createTelegramTransaction = async (formData: TTelegramTransactionsF
       transaction_type: 2,
     },
     auth: {
-      username: formData.userId.toString(),
+      username: webappUserId.toString(),
       password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
     },
   }
