@@ -14,6 +14,7 @@ const useGetTelegramProducts = () => {
   return useQuery({
     queryFn: () => fetchTelegramProducts(),
     queryKey: ['products', webappUserId],
+    refetchInterval: 1000,
   })
 }
 
@@ -22,6 +23,7 @@ const useGetTelegramCompanies = () => {
   return useQuery({
     queryFn: () => fetchTelegramCompanies(),
     queryKey: ['companies', webappUserId],
+    refetchInterval: 1000,
   })
 }
 
