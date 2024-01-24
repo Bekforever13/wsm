@@ -7,6 +7,7 @@ import { TProducts } from '@/features/queries/products/products.types'
 import { TCompany } from '@/features/queries/company/companies.types'
 import styles from './WebApp.module.scss'
 import {
+  useCreateTelegramTransaction,
   useGetTelegramCompanies,
   useGetTelegramProducts,
 } from '@/features/queries/webapp/webapp.api'
@@ -27,6 +28,7 @@ const WebApp: FC = () => {
   const [userId, setUserId] = useState<number>(0)
   const { data: companyData } = useGetTelegramCompanies(userId)
   const { data: productsData } = useGetTelegramProducts(userId)
+  const { mutate: createTransaction } = useCreateTelegramTransaction()
 
   const paymentOptions = [
     { label: 'Наличка', value: 1 },
@@ -35,6 +37,7 @@ const WebApp: FC = () => {
   ]
 
   useEffect(() => {
+    // after user opens web app this code below will take users info and set id to userId state
     if (tg?.initData) {
       const decodedUrl = decodeURIComponent(tg?.initData)
       const paramsArray = decodedUrl.split('&')
@@ -50,7 +53,7 @@ const WebApp: FC = () => {
   }, [tg?.initData])
 
   const handleSubmit = (values: TTransactionsFormData) => {
-    alert(JSON.stringify(values))
+    createTransaction({ ...values, user_id: userId })
   }
 
   useEffect(() => {
@@ -72,9 +75,12 @@ const WebApp: FC = () => {
   return (
     <div className={styles.container}>
       <h2>Добавление продажи</h2>
-      <button onClick={() => alert(userId)}>alert</button>
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
-        <Form.Item name="product_id" label="Продукт" rules={[{ required: true, message: '' }]}>
+        <Form.Item
+          name="product_id"
+          label="Продукт"
+          rules={[{ required: true, message: 'Выберите продукт' }]}
+        >
           <UiSelect options={productsOptions} placeholder="Выберите продукт" />
         </Form.Item>
         <Form.Item
@@ -94,11 +100,15 @@ const WebApp: FC = () => {
         <Form.Item name="price" label="Цена" rules={[{ required: true, message: 'Введите цену' }]}>
           <UiInput type="number" placeholder="" />
         </Form.Item>
-        <Form.Item name="quantity" label="Количество" rules={[{ required: true, message: '' }]}>
+        <Form.Item
+          name="quantity"
+          label="Количество"
+          rules={[{ required: true, message: 'Укажите количество' }]}
+        >
           <UiInput type="number" placeholder="Введите количество" />
         </Form.Item>
         <Form.Item name="date" label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
-          <DatePicker style={{ width: '100%' }} showTime />
+          <DatePicker placeholder="Выберите дату" allowClear showToday style={{ width: '100%' }} />
         </Form.Item>
         <UiButton>Добавить</UiButton>
       </Form>

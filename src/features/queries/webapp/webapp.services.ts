@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { formattedDate } from '@/shared/utils/Utils'
-import { WebappStore } from '@/app/store/webappStore'
 import { TTransactionsFormData } from '..'
 import { TTelegramCompaniesData, TTelegramProductsData } from './webapp.types'
 
@@ -37,9 +36,8 @@ export const fetchTelegramCompanies = async (id: number): Promise<TTelegramCompa
 }
 
 export const createTelegramTransaction = async (formData: TTransactionsFormData) => {
-  const { webappUserId } = WebappStore()
   const config: AxiosRequestConfig = {
-    url: '/telegram/transactions',
+    url: 'https://stockroom.karsoft.uz/api/telegram/transactions',
     method: 'POST',
     data: {
       ...formData,
@@ -47,7 +45,7 @@ export const createTelegramTransaction = async (formData: TTransactionsFormData)
       transaction_type: 2,
     },
     auth: {
-      username: webappUserId.toString(),
+      username: formData?.user_id?.toString() ?? '',
       password: '$2y$12$wBEIuKHscBbBcAbjuW5S2.6yp30krTRrzdikJ30vgLHw6Hzj7nD5y',
     },
   }
