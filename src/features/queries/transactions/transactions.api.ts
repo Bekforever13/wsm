@@ -1,65 +1,56 @@
 import { message } from 'antd'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
-	createTransactions,
-	fetchTransactions,
-	editTransactions,
-	deleteTransactions,
+  fetchTransactionsIncome,
+  createTransactionsIncome,
+  fetchTransactionsSelling,
+  createTransactionsSelling,
 } from './transactions.services'
 import { useTranslation } from 'react-i18next'
 import { TTransactionsError } from '..'
 
-const useGetTransactions = () =>
-	useQuery({
-		queryFn: () => fetchTransactions(),
-		queryKey: ['transactions'],
-	})
+const useGetTransactionsIncome = () =>
+  useQuery({
+    queryFn: () => fetchTransactionsIncome(),
+    queryKey: ['transactions_income'],
+  })
 
-const useCreateTransactions = () => {
-	const client = useQueryClient()
-	const { t } = useTranslation()
-	return useMutation({
-		mutationFn: createTransactions,
-		onSuccess: () => {
-			client.invalidateQueries({ queryKey: ['transactions'] })
-			client.invalidateQueries({ queryKey: ['storage'] })
-			message.success(t('transactionsMessageCreateSuccess'))
-		},
-		onError: (err: TTransactionsError) =>
-			message.error(err?.response?.data?.data),
-	})
+const useCreateTransactionsIncome = () => {
+  const client = useQueryClient()
+  const { t } = useTranslation()
+  return useMutation({
+    mutationFn: createTransactionsIncome,
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['transactions_income'] })
+      client.invalidateQueries({ queryKey: ['storage'] })
+      message.success(t('transactionsMessageCreateSuccess'))
+    },
+    onError: (err: TTransactionsError) => message.error(err?.response?.data?.data),
+  })
 }
-const useEditTransactions = () => {
-	const client = useQueryClient()
-	const { t } = useTranslation()
-	return useMutation({
-		mutationFn: editTransactions,
-		onSuccess: () => {
-			client.invalidateQueries({ queryKey: ['transactions'] })
-			client.invalidateQueries({ queryKey: ['storage'] })
-			message.success(t('transactionsMessageEditSuccess'))
-		},
-		onError: () =>
-			message.error('Произошла ошибка при редактировании транзакции'),
-	})
-}
-const useDeleteTransactions = () => {
-	const client = useQueryClient()
-	const { t } = useTranslation()
-	return useMutation({
-		mutationFn: deleteTransactions,
-		onSuccess: () => {
-			client.invalidateQueries({ queryKey: ['transactions'] })
-			client.invalidateQueries({ queryKey: ['storage'] })
-			message.success(t('transactionsMessageDeleteSuccess'))
-		},
-		onError: () => message.error('Произошла ошибка при удалении транзакции'),
-	})
+const useGetTransactionsSelling = () =>
+  useQuery({
+    queryFn: () => fetchTransactionsSelling(),
+    queryKey: ['transactions_selling'],
+  })
+
+const useCreateTransactionsSelling = () => {
+  const client = useQueryClient()
+  const { t } = useTranslation()
+  return useMutation({
+    mutationFn: createTransactionsSelling,
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['transactions_selling'] })
+      client.invalidateQueries({ queryKey: ['storage'] })
+      message.success(t('transactionsMessageCreateSuccess'))
+    },
+    onError: (err: TTransactionsError) => message.error(err?.response?.data?.data),
+  })
 }
 
 export {
-	useGetTransactions,
-	useCreateTransactions,
-	useEditTransactions,
-	useDeleteTransactions,
+  useGetTransactionsIncome,
+  useCreateTransactionsIncome,
+  useGetTransactionsSelling,
+  useCreateTransactionsSelling,
 }

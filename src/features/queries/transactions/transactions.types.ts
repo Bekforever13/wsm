@@ -11,26 +11,26 @@ export type TTransactionsFormData = {
   user_id?: number
 }
 
-export type TTransactions = {
-  id: number
-  product: TProducts
-  transaction_type: {
-    id: number
-    name: string
-    created_at: string
-    updated_at: string
-  }
-  payment_type: {
-    id: number
-    name: string
-    created_at: string
-    updated_at: string
-  }
-  client: string | null
-  price: number
-  quantity: number
+export type TTransactionsIncome = {
+  company: { id: number; name: string }
   date: string
-  total: number | null
+  from_whom: string
+  id: number
+  payment_type: { id: number; name: string }
+  price: number
+  product: TProducts
+  quantity: number
+  total: number
+}
+
+export type TTransactionsSelling = {
+  company: { id: number; name: string }
+  id: number
+  payment_type: { id: number; name: string }
+  price: number
+  product: TProducts
+  quantity: number
+  total: number
 }
 
 export type TTransactionsError = {
