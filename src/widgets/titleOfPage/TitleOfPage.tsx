@@ -12,12 +12,12 @@ import { TransactionsSelect } from './transactions/TransactionsSelect'
 const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const { setCategoriesModal } = CategoriesStore((s) => s)
-  const { setBrandsModal } = BrandStore((s) => s)
-  const { setProductsModal } = ProductsStore((s) => s)
-  const { setTransactionsModalSelling, setTransactionsModalIncome, transactionsPaymentType } =
-    TransactionsStore((s) => s)
-  const { setCompaniesModal } = CompaniesStore((s) => s)
+  const { setCategoriesModal } = CategoriesStore()
+  const { setBrandsModal } = BrandStore()
+  const { setProductsModal } = ProductsStore()
+  const { setTransactionsModalSelling, setTransactionsModalIncome } = TransactionsStore()
+  const { setCompaniesModal } = CompaniesStore()
+
   const handleClickButton = () => {
     switch (route) {
       case 'categories':
@@ -29,10 +29,11 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
       case 'products':
         setProductsModal(true)
         break
-      case 'transactions':
-        transactionsPaymentType === 1
-          ? setTransactionsModalIncome(true)
-          : setTransactionsModalSelling(true)
+      case 'incomes':
+        setTransactionsModalIncome(true)
+        break
+      case 'sales':
+        setTransactionsModalSelling(true)
         break
       case 'companies':
         setCompaniesModal(true)
@@ -44,7 +45,7 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
     <div className={styles.head}>
       <h1>{title}</h1>
       <div className={styles.wrapper}>
-        {pathname === '/transactions' && <TransactionsSelect />}
+        {(pathname === '/incomes' || pathname === '/sales') && <TransactionsSelect />}
         {pathname !== '/' && pathname !== '/storage' && (
           <UiButton onClick={handleClickButton}>{t('add')}</UiButton>
         )}

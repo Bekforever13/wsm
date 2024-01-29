@@ -1,18 +1,13 @@
 .container {
   width: 100%;
+  gap: 30px;
+  white-space: nowrap;
+  min-width: 400px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
 
   @media (max-width: 1200px) {
     flex-wrap: wrap;
-  }
-
-  .wrapper {
-    white-space: nowrap;
-    min-width: 300px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
   }
 }

@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import styles from './Navbar.module.scss'
 import { FaListUl } from 'react-icons/fa'
-import { GrTransaction } from 'react-icons/gr'
 import { AiOutlineHome, AiFillHdd } from 'react-icons/ai'
 import { TbBrandSketch, TbCategory2 } from 'react-icons/tb'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaRegObjectUngroup } from 'react-icons/fa6'
+import { FiArrowDownLeft } from 'react-icons/fi'
+import { GoArrowUpRight } from 'react-icons/go'
 
 const NavbarMenuItems: FC = () => {
   const { t } = useTranslation()
@@ -16,9 +17,14 @@ const NavbarMenuItems: FC = () => {
   const menuItems = [
     { pathname: '/', icon: <AiOutlineHome />, label: t('home') },
     {
-      pathname: '/transactions',
-      icon: <GrTransaction />,
-      label: t('transactions'),
+      pathname: '/incomes',
+      icon: <FiArrowDownLeft />,
+      label: t('incomes'),
+    },
+    {
+      pathname: '/sales',
+      icon: <GoArrowUpRight />,
+      label: t('sells'),
     },
     { pathname: '/products', icon: <FaListUl />, label: t('products') },
     {

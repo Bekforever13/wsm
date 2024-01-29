@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom'
 import { Layout } from '@/widgets'
 import {
   Home,
-  Transactions,
   Products,
   Categories,
   Brands,
@@ -11,6 +10,8 @@ import {
   Auth,
   Companies,
   WebApp,
+  Sales,
+  Incomes,
 } from '@/pages'
 import './App.scss'
 
@@ -19,7 +20,8 @@ const App: FC = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/sales" element={<Sales />} />
+        <Route path="/incomes" element={<Incomes />} />
         <Route path="/products" element={<Products />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/companies" element={<Companies />} />

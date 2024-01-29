@@ -10,12 +10,11 @@
   user-select: none;
 
   .title {
+    margin-top: -3px;
     margin-left: 20px;
-    display: flex;
-    align-items: center;
     font-size: 24px;
     font-weight: 500;
-    gap: 8px;
+    width: 200px;
   }
 
   .menuItems {

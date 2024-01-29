@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { UiButton, UiInput } from '@/components'
-import { DatePicker, Form } from 'antd'
+import { Form } from 'antd'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
 import { TProducts } from '@/features/queries/products/products.types'
@@ -29,6 +29,7 @@ const WebApp: FC = () => {
   const { data: companyData } = useGetTelegramCompanies(userId)
   const { data: productsData } = useGetTelegramProducts(userId)
   const { mutate: createTransaction } = useCreateTelegramTransaction()
+  const [productId, setProductId] = useState(0)
 
   const paymentOptions = [
     { label: 'Наличка', value: 1 },
@@ -72,43 +73,57 @@ const WebApp: FC = () => {
     }
   }, [companyData])
 
+  useEffect(() => {
+    if (productId && productsData) {
+      const findProduct: TProducts = productsData.data.find(
+        (el: TProducts) => el.id === productId,
+      ) as TProducts
+
+      if (findProduct && userId) {
+        form.setFieldValue('price', findProduct.selling_price)
+      }
+    }
+  }, [productId])
+
   return (
     <div className={styles.container}>
       <h2>Добавление продажи</h2>
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <Form.Item
           name="product_id"
-          label="Продукт"
-          rules={[{ required: true, message: 'Выберите продукт' }]}
+          label="Название товара"
+          rules={[{ required: true, message: 'Введите название товара!' }]}
         >
-          <UiSelect options={productsOptions} placeholder="Выберите продукт" />
+          <UiSelect
+            value={productId}
+            onSelect={(e) => setProductId(e)}
+            options={productsOptions}
+            placeholder="Название товара"
+          />
         </Form.Item>
         <Form.Item
           name="payment_type"
-          label="Тип оплаты"
-          rules={[{ required: true, message: 'Выберите тип оплаты' }]}
+          label="Оплата"
+          rules={[{ required: true, message: 'Выберите тип оплаты!' }]}
         >
-          <UiSelect options={paymentOptions} placeholder="Тип оплаты" />
+          <UiSelect options={paymentOptions} placeholder="Оплата" />
         </Form.Item>
         <Form.Item
           name="company_id"
-          label="Компания"
-          rules={[{ required: true, message: 'Выберите компанию' }]}
+          label="'Филиал'"
+          rules={[{ required: true, message: 'Выберите филиал!' }]}
         >
-          <UiSelect options={companyOptions} placeholder="Выберите компанию" />
+          <UiSelect options={companyOptions} placeholder="Филиал" />
         </Form.Item>
         <Form.Item name="price" label="Цена" rules={[{ required: true, message: 'Введите цену' }]}>
-          <UiInput type="number" placeholder="" />
+          <UiInput type="number" placeholder="Цена" />
         </Form.Item>
         <Form.Item
           name="quantity"
           label="Количество"
-          rules={[{ required: true, message: 'Укажите количество' }]}
+          rules={[{ required: true, message: 'Введите количество' }]}
         >
-          <UiInput type="number" placeholder="Введите количество" />
-        </Form.Item>
-        <Form.Item name="date" label="Дата" rules={[{ required: true, message: 'Выберите дату' }]}>
-          <DatePicker placeholder="Выберите дату" allowClear showToday style={{ width: '100%' }} />
+          <UiInput type="number" placeholder="Количество" />
         </Form.Item>
         <UiButton>Добавить</UiButton>
       </Form>

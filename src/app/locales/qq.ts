@@ -2,7 +2,8 @@ export const qq = {
   translation: {
     // navbar
     home: 'Бас бет',
-    transactions: 'Транзакция',
+    incomes: 'Сатып алынғанлар',
+    sells: 'Сатылғанлар',
     products: 'Өнимлер',
     categories: 'Тайпалар',
     companies: 'Филиаллар',

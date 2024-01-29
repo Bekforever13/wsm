@@ -1,16 +1,17 @@
 import { FC } from 'react'
 import { TitleOfPage } from '@/widgets'
-import { BrandsTable } from './table/BrandsTable'
 import { useTranslation } from 'react-i18next'
+import { IncomesTable } from './table/IncomesTable'
 
-const Brands: FC = () => {
+const Incomes: FC = () => {
   const { t } = useTranslation()
+
   return (
     <div className="container">
-      <TitleOfPage title={t('brands')} route="brands" />
-      <BrandsTable />
+      <TitleOfPage title={t('incomes')} route="incomes" />
+      <IncomesTable />
     </div>
   )
 }
 
-export { Brands }
+export { Incomes }
