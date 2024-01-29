@@ -36,7 +36,9 @@ export type TTransactionsSelling = {
 export type TTransactionsError = {
   response: {
     data: {
-      data: string
+      data: {
+        error: string
+      }
     }
   }
 }

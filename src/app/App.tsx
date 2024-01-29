@@ -9,7 +9,6 @@ import {
   Brands,
   Storage,
   Auth,
-  Users,
   Companies,
   WebApp,
 } from '@/pages'
@@ -26,7 +25,6 @@ const App: FC = () => {
         <Route path="/companies" element={<Companies />} />
         <Route path="/brands" element={<Brands />} />
         <Route path="/storage" element={<Storage />} />
-        <Route path="/users" element={<Users />} />
       </Route>
       <Route path="/auth" element={<Auth />} />
       <Route path="/webapp" element={<WebApp />} />

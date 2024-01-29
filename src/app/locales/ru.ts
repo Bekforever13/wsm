@@ -8,7 +8,6 @@ export const ru = {
     companies: 'Филиалы',
     brands: 'Бренды',
     storage: 'Склад',
-    users: 'Пользователи',
 
     // header
     language: 'Язык',
@@ -16,6 +15,7 @@ export const ru = {
     // home page
 
     // transactions page
+    newTransactions: 'Новая транзакция',
     transactionsTableCol1: 'Название товара',
     transactionsTableCol2: 'Тип транзакции',
     transactionsTableCol3: 'Оплата',
@@ -77,11 +77,6 @@ export const ru = {
     storageTableCol4: 'Куплено',
     storageTableCol5: 'Продано',
     storageTableCol6: 'Остаток',
-
-    // users page
-    userTableCol1: 'Ф.И.О',
-    userTableCol2: 'Номер телефона',
-    userTableCol3: 'Роль',
 
     // shared
     add: 'Добавить',

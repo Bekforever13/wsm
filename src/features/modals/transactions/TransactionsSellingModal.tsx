@@ -1,12 +1,11 @@
 import { FC, useEffect, useState } from 'react'
 import { UiButton, UiInput } from '@/components'
-import { DatePicker, Drawer, Form } from 'antd'
+import { Drawer, Form } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useGetProducts } from '@/features/queries/products/products.api'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TransactionsStore } from '@/app/store/transactionsStore'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
-import { formattedDate } from '@/shared/utils/Utils'
 import { TProducts } from '@/features/queries/products/products.types'
 import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
@@ -26,6 +25,7 @@ const TransactionsSellingModal: FC = () => {
   const { data: companyData } = useGetCompanies()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
+  const [productId, setProductId] = useState(0)
 
   const paymentOptions = [
     { label: t('cash'), value: 1 },
@@ -39,7 +39,7 @@ const TransactionsSellingModal: FC = () => {
   }
 
   const handleSubmit = (values: TTransactionsFormData) => {
-    createTransactions({ ...values, date: formattedDate(values?.date), payment_type: 2 })
+    createTransactions({ ...values, payment_type: 2 })
     handleClose()
   }
 
@@ -59,10 +59,18 @@ const TransactionsSellingModal: FC = () => {
     }
   }, [companyData])
 
+  useEffect(() => {
+    const findProduct: TProducts = productsData?.data?.find((el: TProducts) => el.id === productId)
+
+    if (findProduct && transactionsModalSelling) {
+      form.setFieldValue('price', findProduct.selling_price)
+    }
+  }, [productId])
+
   return (
     <Drawer
       placement="right"
-      title={t('newProducts')}
+      title={t('newTransactions')}
       onClose={handleClose}
       open={transactionsModalSelling}
     >
@@ -72,7 +80,12 @@ const TransactionsSellingModal: FC = () => {
           label={t('transactionsTableCol1')}
           rules={[{ required: true, message: t('transactionsMessageRequired1') }]}
         >
-          <UiSelect options={productsOptions} placeholder={t('transactionsTableCol1')} />
+          <UiSelect
+            value={productId}
+            onSelect={(e) => setProductId(e)}
+            options={productsOptions}
+            placeholder={t('transactionsTableCol1')}
+          />
         </Form.Item>
         <Form.Item
           name="payment_type"
@@ -101,13 +114,6 @@ const TransactionsSellingModal: FC = () => {
           rules={[{ required: true, message: t('transactionsMessageRequired5') }]}
         >
           <UiInput type="number" placeholder={t('transactionsTableCol5')} />
-        </Form.Item>
-        <Form.Item
-          name="date"
-          label={t('transactionsTableCol6')}
-          rules={[{ required: true, message: t('transactionsMessageRequired6') }]}
-        >
-          <DatePicker showTime />
         </Form.Item>
         <UiButton>{t('add')}</UiButton>
       </Form>

@@ -31,8 +31,6 @@ const HeaderBreadCrumbs: React.FC = () => {
                 return t('brands')
               case 'Storage':
                 return t('storage')
-              case 'Users':
-                return t('users')
               default:
                 return capatilize(name)
             }

@@ -62,7 +62,7 @@ const TransactionsIncomeModal: FC = () => {
   return (
     <Drawer
       placement="right"
-      title={t('newProducts')}
+      title={t('newTransactions')}
       onClose={handleClose}
       open={transactionsModalIncome}
     >

@@ -25,7 +25,7 @@ const useCreateTransactionsIncome = () => {
       client.invalidateQueries({ queryKey: ['storage'] })
       message.success(t('transactionsMessageCreateSuccess'))
     },
-    onError: (err: TTransactionsError) => message.error(err?.response?.data?.data),
+    onError: (err: TTransactionsError) => message.error(err?.response?.data?.data?.error),
   })
 }
 const useGetTransactionsSelling = (branchId: number) =>
@@ -44,7 +44,7 @@ const useCreateTransactionsSelling = () => {
       client.invalidateQueries({ queryKey: ['storage'] })
       message.success(t('transactionsMessageCreateSuccess'))
     },
-    onError: (err: TTransactionsError) => message.error(err?.response?.data?.data),
+    onError: (err: TTransactionsError) => message.error(err?.response?.data?.data.error),
   })
 }
 

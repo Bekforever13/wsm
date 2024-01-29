@@ -8,7 +8,6 @@ export const qq = {
     companies: 'Филиаллар',
     brands: 'Брендлар',
     storage: 'Склад',
-    users: 'Пайдаланыўшылар',
 
     // header
     language: 'Тил',
@@ -16,6 +15,7 @@ export const qq = {
     // home page
 
     // transactions page
+    newTransactions: 'Таза транзакция',
     transactionsTableCol1: 'Өним аты',
     transactionsTableCol2: 'Транзакция түри',
     transactionsTableCol3: 'Төлеў',
@@ -75,11 +75,6 @@ export const qq = {
     storageTableCol4: 'Сатып алынған',
     storageTableCol5: 'Сатылған',
     storageTableCol6: 'Қалғаны',
-
-    // users page
-    userTableCol1: 'Ф.И.О',
-    userTableCol2: 'Телефон номери',
-    userTableCol3: 'Роль',
 
     // shared
     add: 'Қосыў',
