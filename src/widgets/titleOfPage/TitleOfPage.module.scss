@@ -2,9 +2,17 @@
   display: flex;
   justify-content: space-between;
 
+  @media (max-width: 1200px) {
+    flex-wrap: wrap;
+  }
+
   .wrapper {
     display: flex;
     align-items: center;
     gap: 20px;
+
+    @media (max-width: 1200px) {
+      margin-bottom: 40px;
+    }
   }
 }

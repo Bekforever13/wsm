@@ -2,7 +2,8 @@ import { create } from 'zustand'
 import { transactionsStoreType } from './index.types'
 
 const TransactionsStore = create<transactionsStoreType>()((set) => ({
-  transactionsModal: false,
+  transactionsModalSelling: false,
+  transactionsModalIncome: false,
   transactionsToEdit: null,
   transactionsBranch: 0,
   transactionsPaymentType: 1,
@@ -15,8 +16,11 @@ const TransactionsStore = create<transactionsStoreType>()((set) => ({
   setTransactionsToEdit(item) {
     set(() => ({ transactionsToEdit: item }))
   },
-  setTransactionsModal(item) {
-    set(() => ({ transactionsModal: item }))
+  setTransactionsModalSelling(item) {
+    set(() => ({ transactionsModalSelling: item }))
+  },
+  setTransactionsModalIncome(item) {
+    set(() => ({ transactionsModalIncome: item }))
   },
 }))
 

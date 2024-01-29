@@ -40,10 +40,7 @@ const TransactionsSelect: FC = () => {
       <div className={styles.wrapper}>
         {t('transactionsTableCol2')}
         <UiSelect
-          onSelect={(e) => {
-            setTransactionsPaymentType(e)
-            console.log(e)
-          }}
+          onSelect={(e) => setTransactionsPaymentType(e)}
           value={transactionsPaymentType}
           options={TransactionsOptions}
         />

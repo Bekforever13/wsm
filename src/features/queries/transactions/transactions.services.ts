@@ -1,8 +1,8 @@
 import { axiosInterceptor } from '@/shared/lib/api'
 import { TTransactionsFormData } from './transactions.types'
 
-export const fetchTransactionsIncome = async () => {
-  const res = await axiosInterceptor.get('/transactions/coming')
+export const fetchTransactionsIncome = async (branchId: number) => {
+  const res = await axiosInterceptor.get(`/transactions/coming?branch=${branchId}`)
   return res.data
 }
 
@@ -11,8 +11,8 @@ export const createTransactionsIncome = async (formData: TTransactionsFormData) 
   return res.data
 }
 
-export const fetchTransactionsSelling = async () => {
-  const res = await axiosInterceptor.get('/transactions/selling')
+export const fetchTransactionsSelling = async (branchId: number) => {
+  const res = await axiosInterceptor.get(`/transactions/selling?branch=${branchId}`)
   return res.data
 }
 

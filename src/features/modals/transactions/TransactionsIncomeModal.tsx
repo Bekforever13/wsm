@@ -5,23 +5,23 @@ import { useTranslation } from 'react-i18next'
 import { useGetProducts } from '@/features/queries/products/products.api'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TransactionsStore } from '@/app/store/transactionsStore'
-// import { useCreateTransactions } from '@/features/queries/transactions/transactions.api'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
-// import { formattedDate } from '@/shared/utils/Utils'
+import { formattedDate } from '@/shared/utils/Utils'
 import { TProducts } from '@/features/queries/products/products.types'
 import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
+import { useCreateTransactionsIncome } from '@/features/queries'
 
 type TOptions = {
   label: string
   value: number
 }
 
-const TransactionsModal: FC = () => {
+const TransactionsIncomeModal: FC = () => {
   const [form] = Form.useForm()
   const { t } = useTranslation()
-  const { transactionsModal, setTransactionsModal } = TransactionsStore((s) => s)
-  // const { mutate: createTransactions } = useCreateTransactions()
+  const { transactionsModalIncome, setTransactionsModalIncome } = TransactionsStore((s) => s)
+  const { mutate: createTransactions } = useCreateTransactionsIncome()
   const { data: productsData } = useGetProducts()
   const { data: companyData } = useGetCompanies()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
@@ -33,21 +33,14 @@ const TransactionsModal: FC = () => {
     { label: t('credit'), value: 3 },
   ]
 
-  const transactionsOptions = [
-    { label: t('purchased'), value: 1 },
-    { label: t('sales'), value: 2 },
-  ]
-
   const handleClose = () => {
-    setTransactionsModal(false)
+    setTransactionsModalIncome(false)
     form.resetFields()
   }
 
-  const handleSubmit = async (values: TTransactionsFormData) => {
-    console.log(values)
-
-    // await createTransactions({ ...values, date: formattedDate(values?.date) })
-    await handleClose()
+  const handleSubmit = (values: TTransactionsFormData) => {
+    createTransactions({ ...values, date: formattedDate(values?.date), payment_type: 1 })
+    handleClose()
   }
 
   useEffect(() => {
@@ -71,7 +64,7 @@ const TransactionsModal: FC = () => {
       placement="right"
       title={t('newProducts')}
       onClose={handleClose}
-      open={transactionsModal}
+      open={transactionsModalIncome}
     >
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <Form.Item
@@ -89,13 +82,6 @@ const TransactionsModal: FC = () => {
           <UiSelect options={paymentOptions} placeholder={t('transactionsTableCol3')} />
         </Form.Item>
         <Form.Item
-          name="transaction_type"
-          label={t('transactionsTableCol2')}
-          rules={[{ required: true, message: t('transactionsMessageRequired3') }]}
-        >
-          <UiSelect options={transactionsOptions} placeholder={t('transactionsTableCol2')} />
-        </Form.Item>
-        <Form.Item
           name="company_id"
           label={t('transactionsTableCol8')}
           rules={[{ required: true, message: t('transactionsMessageRequired8') }]}
@@ -108,6 +94,13 @@ const TransactionsModal: FC = () => {
           rules={[{ required: true, message: t('transactionsMessageRequired4') }]}
         >
           <UiInput type="number" placeholder={t('transactionsTableCol4')} />
+        </Form.Item>
+        <Form.Item
+          name="from_whom"
+          label={t('transactionsTableCol9')}
+          rules={[{ required: true, message: t('transactionsMessageRequired2') }]}
+        >
+          <UiInput placeholder={t('transactionsTableCol9')} />
         </Form.Item>
         <Form.Item
           name="quantity"
@@ -129,4 +122,4 @@ const TransactionsModal: FC = () => {
   )
 }
 
-export { TransactionsModal }
+export { TransactionsIncomeModal }

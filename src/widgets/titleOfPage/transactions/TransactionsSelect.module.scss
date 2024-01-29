@@ -3,6 +3,11 @@
   display: flex;
   align-items: center;
   gap: 30px;
+
+  @media (max-width: 1200px) {
+    flex-wrap: wrap;
+  }
+
   .wrapper {
     white-space: nowrap;
     min-width: 300px;

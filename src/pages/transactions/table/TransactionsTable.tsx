@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ColumnsType } from 'antd/es/table'
 import { UiTable } from '@/components/table/UiTable'
-import { TransactionsModal } from '@/features/modals'
+import { TransactionsIncomeModal, TransactionsSellingModal } from '@/features/modals'
 import {
   TTransactionsIncome,
   TTransactionsSelling,
@@ -14,9 +14,9 @@ import { TransactionsStore } from '@/app/store/transactionsStore'
 
 const TransactionsTable: FC = () => {
   const { t } = useTranslation()
-  const { transactionsPaymentType } = TransactionsStore()
-  const { data: incomeData } = useGetTransactionsIncome()
-  const { data: sellingData } = useGetTransactionsSelling()
+  const { transactionsPaymentType, transactionsBranch } = TransactionsStore()
+  const { data: incomeData } = useGetTransactionsIncome(transactionsBranch)
+  const { data: sellingData } = useGetTransactionsSelling(transactionsBranch)
   const [page, setPage] = useState(1)
 
   const incomeColumns: ColumnsType<TTransactionsIncome> = [
@@ -81,7 +81,7 @@ const TransactionsTable: FC = () => {
     {
       title: t('companiesTableCol1'),
       dataIndex: 'company',
-      render: (_, rec) => rec.company.name
+      render: (_, rec) => rec.company.name,
     },
     {
       title: t('transactionsTableCol4'),
@@ -116,7 +116,8 @@ const TransactionsTable: FC = () => {
         locale={{ emptyText: 'Нет данных' }}
         rowKey={(e) => e.id}
       />
-      <TransactionsModal />
+      <TransactionsSellingModal />
+      <TransactionsIncomeModal />
     </>
   )
 }

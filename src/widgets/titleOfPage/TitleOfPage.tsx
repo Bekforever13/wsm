@@ -15,7 +15,8 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
   const { setCategoriesModal } = CategoriesStore((s) => s)
   const { setBrandsModal } = BrandStore((s) => s)
   const { setProductsModal } = ProductsStore((s) => s)
-  const { setTransactionsModal } = TransactionsStore((s) => s)
+  const { setTransactionsModalSelling, setTransactionsModalIncome, transactionsPaymentType } =
+    TransactionsStore((s) => s)
   const { setCompaniesModal } = CompaniesStore((s) => s)
   const handleClickButton = () => {
     switch (route) {
@@ -29,7 +30,9 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
         setProductsModal(true)
         break
       case 'transactions':
-        setTransactionsModal(true)
+        transactionsPaymentType === 1
+          ? setTransactionsModalIncome(true)
+          : setTransactionsModalSelling(true)
         break
       case 'companies':
         setCompaniesModal(true)

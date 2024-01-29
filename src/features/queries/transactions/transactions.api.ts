@@ -9,10 +9,10 @@ import {
 import { useTranslation } from 'react-i18next'
 import { TTransactionsError } from '..'
 
-const useGetTransactionsIncome = () =>
+const useGetTransactionsIncome = (branchId: number) =>
   useQuery({
-    queryFn: () => fetchTransactionsIncome(),
-    queryKey: ['transactions_income'],
+    queryFn: () => fetchTransactionsIncome(branchId),
+    queryKey: ['transactions_income', branchId],
   })
 
 const useCreateTransactionsIncome = () => {
@@ -28,10 +28,10 @@ const useCreateTransactionsIncome = () => {
     onError: (err: TTransactionsError) => message.error(err?.response?.data?.data),
   })
 }
-const useGetTransactionsSelling = () =>
+const useGetTransactionsSelling = (branchId: number) =>
   useQuery({
-    queryFn: () => fetchTransactionsSelling(),
-    queryKey: ['transactions_selling'],
+    queryFn: () => fetchTransactionsSelling(branchId),
+    queryKey: ['transactions_selling', branchId],
   })
 
 const useCreateTransactionsSelling = () => {
