@@ -15,8 +15,10 @@ import { TransactionsStore } from '@/app/store/transactionsStore'
 const TransactionsTable: FC = () => {
   const { t } = useTranslation()
   const { transactionsPaymentType, transactionsBranch } = TransactionsStore()
-  const { data: incomeData } = useGetTransactionsIncome(transactionsBranch)
-  const { data: sellingData } = useGetTransactionsSelling(transactionsBranch)
+  const { data: incomeData, isLoading: loadingIncome } =
+    useGetTransactionsIncome(transactionsBranch)
+  const { data: sellingData, isLoading: loadingSelling } =
+    useGetTransactionsSelling(transactionsBranch)
   const [page, setPage] = useState(1)
 
   const incomeColumns: ColumnsType<TTransactionsIncome> = [
@@ -104,6 +106,7 @@ const TransactionsTable: FC = () => {
       <UiTable
         columns={transactionsPaymentType === 1 ? incomeColumns : sellingColumns}
         dataSource={transactionsPaymentType === 1 ? incomeData?.data : sellingData?.data}
+        loading={transactionsPaymentType === 1 ? loadingIncome : loadingSelling}
         pagination={{
           total: 1,
           current: page,

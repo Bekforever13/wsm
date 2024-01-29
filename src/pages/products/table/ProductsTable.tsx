@@ -64,6 +64,9 @@ const ProductsTable: FC = () => {
           onChange: (e) => setPage(e),
         }}
         rowKey={(e) => e.id}
+        scroll={{ x: true }}
+        style={{ width: '100%' }}
+        locale={{ emptyText: 'Нет данных' }}
       />
       <ProductsModal />
     </>
