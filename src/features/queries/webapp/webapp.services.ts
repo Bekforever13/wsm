@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { formattedDate } from '@/shared/utils/Utils'
 import { TTransactionsFormData } from '..'
 import { TTelegramCompaniesData, TTelegramProductsData } from './webapp.types'
 
@@ -41,7 +40,6 @@ export const createTelegramTransaction = async (formData: TTransactionsFormData)
     method: 'POST',
     data: {
       ...formData,
-      date: formattedDate(formData?.date),
       transaction_type: 2,
     },
     auth: {
