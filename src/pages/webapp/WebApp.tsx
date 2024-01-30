@@ -55,6 +55,8 @@ const WebApp: FC = () => {
 
   const handleSubmit = (values: TTransactionsFormData) => {
     createTransaction({ ...values, user_id: userId })
+    form.resetFields()
+    
   }
 
   useEffect(() => {
