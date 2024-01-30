@@ -110,7 +110,7 @@ const WebApp: FC = () => {
         </Form.Item>
         <Form.Item
           name="company_id"
-          label="'Филиал'"
+          label="Филиал"
           rules={[{ required: true, message: 'Выберите филиал!' }]}
         >
           <UiSelect options={companyOptions} placeholder="Филиал" />

@@ -32,7 +32,7 @@ const useCreateTelegramTransaction = () => {
       client.invalidateQueries({ queryKey: ['storage'] })
       message.success(t('transactionsMessageCreateSuccess'))
     },
-    onError: (err: TTransactionsError) => message.error(err?.response?.data?.data.error),
+    onError: (err: any) => message.error(err?.response?.data?.data),
   })
 }
 
