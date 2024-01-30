@@ -37,7 +37,7 @@ export const fetchTelegramCompanies = async (id: number): Promise<TTelegramCompa
 
 export const createTelegramTransaction = async (formData: TTransactionsFormData) => {
   const config: AxiosRequestConfig = {
-    url: 'https://stockroom.karsoft.uz/api/telegram/transactions',
+    url: 'https://stockroom.karsoft.uz/api/telegram/transactions/selling',
     method: 'POST',
     data: {
       ...formData,
