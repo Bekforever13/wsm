@@ -1,7 +1,7 @@
 import { message } from 'antd'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import { TTransactionsError } from '..'
+// import { TTransactionsError } from '..'
 import {
   createTelegramTransaction,
   fetchTelegramCompanies,
