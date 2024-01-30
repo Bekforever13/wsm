@@ -77,23 +77,13 @@ const WebApp: FC = () => {
 
   useEffect(() => {
     if (storageData && productId) {
-      const findProduct: any = storageData?.data?.find((el) => el.product.id === productId)
+      const findProduct = storageData?.data?.find((el) => el.product.id === productId)
 
       if (findProduct) {
-        alert(JSON.stringify(findProduct))
         setAvailableProducts(findProduct.quantity)
-        form.setFieldValue('price', findProduct?.product.selling_price)
+        form.setFieldValue('price', findProduct?.product?.selling_price)
       }
     }
-    // if (productId && productsData) {
-    //   const findProduct: TProducts = productsData.data.find(
-    //     (el: TProducts) => el.id === productId,
-    //   ) as TProducts
-
-    //   if (findProduct && userId) {
-    //     form.setFieldValue('price', findProduct.selling_price)
-    //   }
-    // }
   }, [productId])
 
   return (

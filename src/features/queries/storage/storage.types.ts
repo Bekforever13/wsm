@@ -9,6 +9,7 @@ export type TStorage = {
     name: string
     created_at: string
     updated_at: string
+    selling_price: number
   }
   purchased: number
   sales: number
