@@ -82,7 +82,7 @@ const WebApp: FC = () => {
       if (findProduct) {
         alert(JSON.stringify(findProduct))
         setAvailableProducts(findProduct.quantity)
-        form.setFieldValue('price', findProduct?.selling_price)
+        form.setFieldValue('price', findProduct?.product.selling_price)
       }
     }
     // if (productId && productsData) {
