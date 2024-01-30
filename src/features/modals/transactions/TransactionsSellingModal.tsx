@@ -9,7 +9,7 @@ import { TTransactionsFormData } from '@/features/queries/transactions/transacti
 import { TProducts } from '@/features/queries/products/products.types'
 import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
-import { useCreateTransactionsSelling } from '@/features/queries'
+import { useCreateTransactionsSelling, useGetStorage } from '@/features/queries'
 
 type TOptions = {
   label: string
@@ -23,9 +23,11 @@ const TransactionsSellingModal: FC = () => {
   const { mutate: createTransactions } = useCreateTransactionsSelling()
   const { data: productsData } = useGetProducts()
   const { data: companyData } = useGetCompanies()
+  const { data: storageData } = useGetStorage()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
   const [productId, setProductId] = useState(0)
+  const [availableProducts, setAvailableProducts] = useState(0)
 
   const paymentOptions = [
     { label: t('cash'), value: 1 },
@@ -44,12 +46,12 @@ const TransactionsSellingModal: FC = () => {
   }
 
   useEffect(() => {
-    if (productsData) {
-      productsData.data.map((el: TProducts) =>
-        setProductsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
+    if (storageData) {
+      storageData?.data?.map((el) =>
+        setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
       )
     }
-  }, [productsData])
+  }, [storageData])
 
   useEffect(() => {
     if (companyData) {
@@ -61,6 +63,11 @@ const TransactionsSellingModal: FC = () => {
 
   useEffect(() => {
     const findProduct: TProducts = productsData?.data?.find((el: TProducts) => el.id === productId)
+    const findAvailable = storageData?.data?.find((el) => el.product.id === productId)
+
+    if (findAvailable) {
+      setAvailableProducts(findAvailable.quantity)
+    }
 
     if (findProduct && transactionsModalSelling) {
       form.setFieldValue('price', findProduct.selling_price)
@@ -110,7 +117,7 @@ const TransactionsSellingModal: FC = () => {
         </Form.Item>
         <Form.Item
           name="quantity"
-          label={t('transactionsTableCol5')}
+          label={`${t('transactionsTableCol5')}. Доступно: ${availableProducts} штук`}
           rules={[{ required: true, message: t('transactionsMessageRequired5') }]}
         >
           <UiInput type="number" placeholder={t('transactionsTableCol5')} />

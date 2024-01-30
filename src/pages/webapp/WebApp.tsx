@@ -3,13 +3,12 @@ import { UiButton, UiInput } from '@/components'
 import { Form } from 'antd'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
-import { TProducts } from '@/features/queries/products/products.types'
 import { TCompany } from '@/features/queries/company/companies.types'
 import styles from './WebApp.module.scss'
 import {
   useCreateTelegramTransaction,
   useGetTelegramCompanies,
-  useGetTelegramProducts,
+  useGetTelegramStorage,
 } from '@/features/queries/webapp/webapp.api'
 
 type TOptions = {
@@ -27,9 +26,10 @@ const WebApp: FC = () => {
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
   const [userId, setUserId] = useState<number>(0)
   const { data: companyData } = useGetTelegramCompanies(userId)
-  const { data: productsData } = useGetTelegramProducts(userId)
+  const { data: storageData } = useGetTelegramStorage(userId)
   const { mutate: createTransaction } = useCreateTelegramTransaction()
   const [productId, setProductId] = useState(0)
+  const [availableProducts, setAvailableProducts] = useState(0)
 
   const paymentOptions = [
     { label: 'Наличка', value: 1 },
@@ -60,12 +60,12 @@ const WebApp: FC = () => {
   }
 
   useEffect(() => {
-    if (productsData) {
-      productsData.data.map((el: TProducts) =>
-        setProductsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
+    if (storageData) {
+      storageData?.data?.map((el) =>
+        setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
       )
     }
-  }, [productsData])
+  }, [storageData])
 
   useEffect(() => {
     if (companyData) {
@@ -76,15 +76,24 @@ const WebApp: FC = () => {
   }, [companyData])
 
   useEffect(() => {
-    if (productId && productsData) {
-      const findProduct: TProducts = productsData.data.find(
-        (el: TProducts) => el.id === productId,
-      ) as TProducts
+    if (storageData && productId) {
+      const findProduct: any = storageData?.data?.find((el) => el.product.id === productId)
 
-      if (findProduct && userId) {
-        form.setFieldValue('price', findProduct.selling_price)
+      form.setFieldValue('price', findProduct?.selling_price)
+
+      if (findProduct) {
+        setAvailableProducts(findProduct.quantity)
       }
     }
+    // if (productId && productsData) {
+    //   const findProduct: TProducts = productsData.data.find(
+    //     (el: TProducts) => el.id === productId,
+    //   ) as TProducts
+
+    //   if (findProduct && userId) {
+    //     form.setFieldValue('price', findProduct.selling_price)
+    //   }
+    // }
   }, [productId])
 
   return (
@@ -122,7 +131,7 @@ const WebApp: FC = () => {
         </Form.Item>
         <Form.Item
           name="quantity"
-          label="Количество"
+          label={`Количество. Доступно: ${availableProducts} штук`}
           rules={[{ required: true, message: 'Введите количество' }]}
         >
           <UiInput type="number" placeholder="Количество" />

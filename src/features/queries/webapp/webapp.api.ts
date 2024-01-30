@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 // import { TTransactionsError } from '..'
 import {
   createTelegramTransaction,
+  fetchStorage,
   fetchTelegramCompanies,
   fetchTelegramProducts,
 } from './webapp.services'
@@ -11,6 +12,13 @@ import {
 const useGetTelegramProducts = (id: number) => {
   return useQuery({
     queryFn: () => fetchTelegramProducts(id),
+    queryKey: ['products', id],
+  })
+}
+
+const useGetTelegramStorage = (id: number) => {
+  return useQuery({
+    queryFn: () => fetchStorage(id),
     queryKey: ['products', id],
   })
 }
@@ -36,4 +44,9 @@ const useCreateTelegramTransaction = () => {
   })
 }
 
-export { useGetTelegramProducts, useCreateTelegramTransaction, useGetTelegramCompanies }
+export {
+  useGetTelegramProducts,
+  useCreateTelegramTransaction,
+  useGetTelegramCompanies,
+  useGetTelegramStorage,
+}
