@@ -79,10 +79,10 @@ const WebApp: FC = () => {
     if (storageData && productId) {
       const findProduct: any = storageData?.data?.find((el) => el.product.id === productId)
 
-      form.setFieldValue('price', findProduct?.selling_price)
-
       if (findProduct) {
+        alert(JSON.stringify(findProduct))
         setAvailableProducts(findProduct.quantity)
+        form.setFieldValue('price', findProduct?.selling_price)
       }
     }
     // if (productId && productsData) {
