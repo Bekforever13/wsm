@@ -1,15 +1,13 @@
 import { FC, useEffect, useState } from 'react'
-import { UiButton, UiInput } from '@/components'
+import { UiButton, UiInput, UiInputNumber } from '@/components'
 import { Drawer, Form } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useGetProducts } from '@/features/queries/products/products.api'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TransactionsStore } from '@/app/store/transactionsStore'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
-import { TProducts } from '@/features/queries/products/products.types'
 import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
-import { useCreateTransactionsSelling, useGetStorage } from '@/features/queries'
+import { TStorage, useCreateTransactionsSelling, useGetStorage } from '@/features/queries'
 
 type TOptions = {
   label: string
@@ -21,13 +19,14 @@ const TransactionsSellingModal: FC = () => {
   const { t } = useTranslation()
   const { transactionsModalSelling, setTransactionsModalSelling } = TransactionsStore()
   const { mutate: createTransactions } = useCreateTransactionsSelling()
-  const { data: productsData } = useGetProducts()
   const { data: companyData } = useGetCompanies()
   const { data: storageData } = useGetStorage()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
   const [productId, setProductId] = useState(0)
-  const [availableProducts, setAvailableProducts] = useState(0)
+  const [companyId, setCompanyId] = useState(0)
+  const [availableProducts, setAvailableProducts] = useState<TStorage[]>()
+  const [availableQuantity, setAvailableQuantity] = useState<number>()
 
   const paymentOptions = [
     { label: t('cash'), value: 1 },
@@ -38,20 +37,17 @@ const TransactionsSellingModal: FC = () => {
   const handleClose = () => {
     setTransactionsModalSelling(false)
     form.resetFields()
+    setProductId(0)
+    setCompanyId(0)
+    setProductsOptions([])
+    setAvailableProducts(undefined)
+    setAvailableQuantity(undefined)
   }
 
   const handleSubmit = (values: TTransactionsFormData) => {
-    createTransactions({ ...values, payment_type: 2 })
+    createTransactions(values)
     handleClose()
   }
-
-  useEffect(() => {
-    if (storageData) {
-      storageData?.data?.map((el) =>
-        setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
-      )
-    }
-  }, [storageData])
 
   useEffect(() => {
     if (companyData) {
@@ -62,15 +58,19 @@ const TransactionsSellingModal: FC = () => {
   }, [companyData])
 
   useEffect(() => {
-    const findProduct: TProducts = productsData?.data?.find((el: TProducts) => el.id === productId)
-    const findAvailable = storageData?.data?.find((el) => el.product.id === productId)
-
-    if (findAvailable) {
-      setAvailableProducts(findAvailable.quantity)
+    setAvailableProducts(storageData?.data.filter((el) => el.company.id === companyId))
+    if (availableProducts) {
+      availableProducts?.map((el) =>
+        setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
+      )
     }
+  }, [companyId, availableProducts?.length])
 
-    if (findProduct && transactionsModalSelling) {
-      form.setFieldValue('price', findProduct.selling_price)
+  useEffect(() => {
+    const findProduct = availableProducts?.find((el) => el.product.id === productId)
+    if (productId) {
+      setAvailableQuantity(findProduct?.quantity)
+      form.setFieldValue('price', findProduct?.product.selling_price)
     }
   }, [productId])
 
@@ -82,6 +82,18 @@ const TransactionsSellingModal: FC = () => {
       open={transactionsModalSelling}
     >
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
+        <Form.Item
+          name="company_id"
+          label={t('transactionsTableCol8')}
+          rules={[{ required: true, message: t('transactionsMessageRequired8') }]}
+        >
+          <UiSelect
+            value={companyId}
+            onSelect={(e) => setCompanyId(e)}
+            options={companyOptions}
+            placeholder={t('transactionsTableCol8')}
+          />
+        </Form.Item>
         <Form.Item
           name="product_id"
           label={t('transactionsTableCol1')}
@@ -101,13 +113,7 @@ const TransactionsSellingModal: FC = () => {
         >
           <UiSelect options={paymentOptions} placeholder={t('transactionsTableCol3')} />
         </Form.Item>
-        <Form.Item
-          name="company_id"
-          label={t('transactionsTableCol8')}
-          rules={[{ required: true, message: t('transactionsMessageRequired8') }]}
-        >
-          <UiSelect options={companyOptions} placeholder={t('transactionsTableCol8')} />
-        </Form.Item>
+
         <Form.Item
           name="price"
           label={t('transactionsTableCol4')}
@@ -117,10 +123,25 @@ const TransactionsSellingModal: FC = () => {
         </Form.Item>
         <Form.Item
           name="quantity"
-          label={`${t('transactionsTableCol5')}. Доступно: ${availableProducts} штук`}
-          rules={[{ required: true, message: t('transactionsMessageRequired5') }]}
+          label={`${t('transactionsTableCol5')}. ${
+            productId ? `Доступно: ${availableQuantity} штук` : ''
+          }`}
+          rules={[
+            {
+              required: true,
+              message: t('transactionsMessageRequired5'),
+            },
+            () => ({
+              validator(_, value) {
+                if (value >= 1 && value <= availableQuantity!) {
+                  return Promise.resolve()
+                }
+                return Promise.reject('Неверное количество.')
+              },
+            }),
+          ]}
         >
-          <UiInput type="number" placeholder={t('transactionsTableCol5')} />
+          <UiInputNumber min={0} max={availableQuantity} placeholder={t('transactionsTableCol5')} />
         </Form.Item>
         <UiButton>{t('add')}</UiButton>
       </Form>

@@ -39,7 +39,7 @@ const ProductsTable: FC = () => {
         brandsData?.data.map((brand: TBrand) => (brand.id === rec.brand_id ? brand.name : '')),
     },
     {
-      title: t('productsTableCol3'),
+      title: t('productsTableCol4'),
       dataIndex: 'selling_price',
       render: (_, rec) => formatPrice(rec.selling_price) + ' сум',
     },

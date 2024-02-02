@@ -12,6 +12,10 @@ import {
   useGetStorage,
   TStorage,
 } from '@/features/queries'
+import { useGetCompanies } from '@/features/queries/company/companies.api'
+import { TCompany } from '@/features/queries/company/companies.types'
+import { ConfigProvider } from 'antd'
+import ruRU from 'antd/es/locale/ru_RU'
 
 const StorageTable: FC = () => {
   const { t } = useTranslation()
@@ -19,6 +23,7 @@ const StorageTable: FC = () => {
   const { data: categoriesData } = useGetCategories()
   const { data: brandsData } = useGetBrands()
   const { data: productsData } = useGetProducts()
+  const { data: companiesData } = useGetCompanies()
   const [page, setPage] = useState(1)
 
   const columns: ColumnsType<TStorage> = [
@@ -33,6 +38,18 @@ const StorageTable: FC = () => {
       filterMode: 'tree',
       filterSearch: true,
       onFilter: (el: unknown, rec) => rec.product.name.startsWith(el as string),
+    },
+    {
+      title: t('companiesTableCol1'),
+      dataIndex: 'company',
+      render: (_, rec) => rec.company.name,
+      filters: companiesData?.data?.map((el: TCompany) => ({
+        text: el.name,
+        value: el.name,
+      })),
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (el: unknown, rec) => rec.company.name.startsWith(el as string),
     },
     {
       title: t('storageTableCol2'),
@@ -79,22 +96,24 @@ const StorageTable: FC = () => {
   ]
 
   return (
-    <UiTable
-      columns={columns}
-      dataSource={storageData?.data}
-      loading={isLoading}
-      pagination={{
-        total: 10,
-        current: page,
-        showSizeChanger: false,
-        defaultPageSize: 10,
-        onChange: (e) => setPage(e),
-      }}
-      scroll={{ x: true }}
-      style={{ width: '100%' }}
-      locale={{ emptyText: 'Нет данных' }}
-      rowKey={(e) => e.id}
-    />
+    <ConfigProvider locale={ruRU}>
+      <UiTable
+        columns={columns}
+        dataSource={storageData?.data}
+        loading={isLoading}
+        pagination={{
+          total: 10,
+          current: page,
+          showSizeChanger: false,
+          defaultPageSize: 10,
+          onChange: (e) => setPage(e),
+        }}
+        scroll={{ x: true }}
+        style={{ width: '100%' }}
+        locale={{ emptyText: 'Нет данных' }}
+        rowKey={(e) => e.id}
+      />
+    </ConfigProvider>
   )
 }
 

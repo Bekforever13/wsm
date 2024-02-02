@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { UiButton, UiInput } from '@/components'
+import { UiButton, UiInput, UiInputNumber } from '@/components'
 import { Form } from 'antd'
 import { UiSelect } from '@/components/select/UiSelect'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
@@ -10,6 +10,7 @@ import {
   useGetTelegramCompanies,
   useGetTelegramStorage,
 } from '@/features/queries/webapp/webapp.api'
+import { TStorage } from '@/features/queries'
 
 type TOptions = {
   label: string
@@ -29,7 +30,9 @@ const WebApp: FC = () => {
   const { data: storageData } = useGetTelegramStorage(userId)
   const { mutate: createTransaction } = useCreateTelegramTransaction()
   const [productId, setProductId] = useState(0)
-  const [availableProducts, setAvailableProducts] = useState(0)
+  const [companyId, setCompanyId] = useState(0)
+  const [availableProducts, setAvailableProducts] = useState<TStorage[]>()
+  const [availableQuantity, setAvailableQuantity] = useState<number>()
 
   const paymentOptions = [
     { label: 'Наличка', value: 1 },
@@ -57,15 +60,11 @@ const WebApp: FC = () => {
     createTransaction({ ...values, user_id: userId })
     form.resetFields()
     setProductId(0)
+    setCompanyId(0)
+    setProductsOptions([])
+    setAvailableProducts(undefined)
+    setAvailableQuantity(undefined)
   }
-
-  useEffect(() => {
-    if (storageData) {
-      storageData?.data?.map((el) =>
-        setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
-      )
-    }
-  }, [storageData])
 
   useEffect(() => {
     if (companyData) {
@@ -76,13 +75,19 @@ const WebApp: FC = () => {
   }, [companyData])
 
   useEffect(() => {
-    if (storageData && productId) {
-      const findProduct = storageData?.data?.find((el) => el.product.id === productId)
+    setAvailableProducts(storageData?.data.filter((el) => el.company.id === companyId))
+    if (availableProducts) {
+      availableProducts?.map((el) =>
+        setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
+      )
+    }
+  }, [companyId, availableProducts?.length])
 
-      if (findProduct) {
-        setAvailableProducts(findProduct.quantity)
-        form.setFieldValue('price', findProduct?.product?.selling_price)
-      }
+  useEffect(() => {
+    const findProduct = availableProducts?.find((el) => el.product.id === productId)
+    if (productId) {
+      setAvailableQuantity(findProduct?.quantity)
+      form.setFieldValue('price', findProduct?.product.selling_price)
     }
   }, [productId])
 
@@ -90,6 +95,18 @@ const WebApp: FC = () => {
     <div className={styles.container}>
       <h2>Добавление продажи</h2>
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
+        <Form.Item
+          name="company_id"
+          label="Филиал"
+          rules={[{ required: true, message: 'Выберите филиал!' }]}
+        >
+          <UiSelect
+            value={companyId}
+            onSelect={(e) => setCompanyId(e)}
+            options={companyOptions}
+            placeholder="Филиал"
+          />
+        </Form.Item>
         <Form.Item
           name="product_id"
           label="Название товара"
@@ -109,22 +126,28 @@ const WebApp: FC = () => {
         >
           <UiSelect options={paymentOptions} placeholder="Оплата" />
         </Form.Item>
-        <Form.Item
-          name="company_id"
-          label="Филиал"
-          rules={[{ required: true, message: 'Выберите филиал!' }]}
-        >
-          <UiSelect options={companyOptions} placeholder="Филиал" />
-        </Form.Item>
         <Form.Item name="price" label="Цена" rules={[{ required: true, message: 'Введите цену' }]}>
           <UiInput type="number" placeholder="Цена" />
         </Form.Item>
         <Form.Item
           name="quantity"
-          label={`Количество. Доступно: ${availableProducts} штук`}
-          rules={[{ required: true, message: 'Введите количество' }]}
+          label={`Количество. ${productId ? `Доступно: ${availableQuantity} штук` : ''}`}
+          rules={[
+            {
+              required: true,
+              message: 'Введите количество',
+            },
+            () => ({
+              validator(_, value) {
+                if (value >= 1 && value <= availableQuantity!) {
+                  return Promise.resolve()
+                }
+                return Promise.reject('Неверное количество.')
+              },
+            }),
+          ]}
         >
-          <UiInput type="number" placeholder="Количество" />
+          <UiInputNumber min={0} max={availableQuantity} placeholder="Количество" />
         </Form.Item>
         <UiButton>Добавить</UiButton>
       </Form>
