@@ -7,7 +7,7 @@ import { TransactionsStore } from '@/app/store/transactionsStore'
 import { TTransactionsFormData } from '@/features/queries/transactions/transactions.types'
 import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
-import { TStorage, useCreateTransactionsSelling, useGetStorage } from '@/features/queries'
+import { useCreateTransactionsSelling, useGetStorage } from '@/features/queries'
 
 type TOptions = {
   label: string
@@ -19,13 +19,12 @@ const TransactionsSellingModal: FC = () => {
   const { t } = useTranslation()
   const { transactionsModalSelling, setTransactionsModalSelling } = TransactionsStore()
   const { mutate: createTransactions } = useCreateTransactionsSelling()
-  const { data: companyData } = useGetCompanies()
+  const { data: companyData, isSuccess: companyDataSuccess } = useGetCompanies()
   const { data: storageData } = useGetStorage()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
-  const [productId, setProductId] = useState(0)
-  const [companyId, setCompanyId] = useState(0)
-  const [availableProducts, setAvailableProducts] = useState<TStorage[]>()
+  const [productId, setProductId] = useState<number | null>(null)
+  const [companyId, setCompanyId] = useState<number | null>(null)
   const [availableQuantity, setAvailableQuantity] = useState<number>()
 
   const paymentOptions = [
@@ -40,8 +39,16 @@ const TransactionsSellingModal: FC = () => {
     setProductId(0)
     setCompanyId(0)
     setProductsOptions([])
-    setAvailableProducts(undefined)
     setAvailableQuantity(undefined)
+  }
+
+  const handleSelectCompany = (e: number) => {
+    setCompanyId(e)
+    setProductId(null)
+    form.setFieldValue('product_id', null)
+    form.setFieldValue('price', null)
+    form.setFieldValue('payment_type', null)
+    form.setFieldValue('quantity', null)
   }
 
   const handleSubmit = (values: TTransactionsFormData) => {
@@ -55,24 +62,26 @@ const TransactionsSellingModal: FC = () => {
         setCompanyOptions((prev) => [...prev, { value: el.id, label: el.name }]),
       )
     }
-  }, [companyData])
+  }, [companyDataSuccess])
 
+  // need to fix this code, because it renders a lot
   useEffect(() => {
-    setAvailableProducts(storageData?.data.filter((el) => el.company.id === companyId))
-    if (availableProducts) {
+    const availableProducts = storageData?.data.filter((el) => el.company.id === companyId)
+    if (!productId) {
       availableProducts?.map((el) =>
         setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
       )
     }
-  }, [companyId, availableProducts?.length])
-
-  useEffect(() => {
-    const findProduct = availableProducts?.find((el) => el.product.id === productId)
     if (productId) {
+      const findProduct = availableProducts?.find((el) => el.product.id === productId)
       setAvailableQuantity(findProduct?.quantity)
       form.setFieldValue('price', findProduct?.product.selling_price)
     }
-  }, [productId])
+    return () => {
+      setProductsOptions([])
+      setAvailableQuantity(0)
+    }
+  }, [companyId, productId])
 
   return (
     <Drawer
@@ -89,7 +98,7 @@ const TransactionsSellingModal: FC = () => {
         >
           <UiSelect
             value={companyId}
-            onSelect={(e) => setCompanyId(e)}
+            onSelect={(e) => handleSelectCompany(e)}
             options={companyOptions}
             placeholder={t('transactionsTableCol8')}
           />
@@ -124,7 +133,7 @@ const TransactionsSellingModal: FC = () => {
         <Form.Item
           name="quantity"
           label={`${t('transactionsTableCol5')}. ${
-            productId ? `Доступно: ${availableQuantity} штук` : ''
+            productId ? `Доступно: ${availableQuantity ?? 0} штук` : ''
           }`}
           rules={[
             {

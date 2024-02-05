@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { FaRegObjectUngroup } from 'react-icons/fa6'
 import { FiArrowDownLeft } from 'react-icons/fi'
 import { GoArrowUpRight } from 'react-icons/go'
+import { HiReceiptRefund } from 'react-icons/hi'
 
 const NavbarMenuItems: FC = () => {
   const { t } = useTranslation()
@@ -39,6 +40,7 @@ const NavbarMenuItems: FC = () => {
     },
     { pathname: '/brands', icon: <TbBrandSketch />, label: t('brands') },
     { pathname: '/storage', icon: <AiFillHdd />, label: t('storage') },
+    { pathname: '/refunds', icon: <HiReceiptRefund />, label: t('refunds') },
   ]
 
   const handleClickRoute = (pathname: string) => {

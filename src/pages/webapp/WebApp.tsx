@@ -29,8 +29,8 @@ const WebApp: FC = () => {
   const { data: companyData } = useGetTelegramCompanies(userId)
   const { data: storageData } = useGetTelegramStorage(userId)
   const { mutate: createTransaction } = useCreateTelegramTransaction()
-  const [productId, setProductId] = useState(0)
-  const [companyId, setCompanyId] = useState(0)
+  const [productId, setProductId] = useState<number | null>(null)
+  const [companyId, setCompanyId] = useState<number | null>(null)
   const [availableProducts, setAvailableProducts] = useState<TStorage[]>()
   const [availableQuantity, setAvailableQuantity] = useState<number>()
 
@@ -39,6 +39,15 @@ const WebApp: FC = () => {
     { label: 'Пластик карта', value: 2 },
     { label: 'Кредит', value: 3 },
   ]
+
+  const handleSelectCompany = (e: number) => {
+    setCompanyId(e)
+    setProductId(null)
+    form.setFieldValue('product_id', null)
+    form.setFieldValue('price', null)
+    form.setFieldValue('payment_type', null)
+    form.setFieldValue('quantity', null)
+  }
 
   useEffect(() => {
     // after user opens web app this code below will take users info and set id to userId state
@@ -75,13 +84,22 @@ const WebApp: FC = () => {
   }, [companyData])
 
   useEffect(() => {
-    setAvailableProducts(storageData?.data.filter((el) => el.company.id === companyId))
-    if (availableProducts) {
+    const availableProducts = storageData?.data.filter((el) => el.company.id === companyId)
+    if (!productId) {
       availableProducts?.map((el) =>
         setProductsOptions((prev) => [...prev, { value: el.product.id, label: el.product.name }]),
       )
     }
-  }, [companyId, availableProducts?.length])
+    if (productId) {
+      const findProduct = availableProducts?.find((el) => el.product.id === productId)
+      setAvailableQuantity(findProduct?.quantity)
+      form.setFieldValue('price', findProduct?.product.selling_price)
+    }
+    return () => {
+      setProductsOptions([])
+      setAvailableQuantity(0)
+    }
+  }, [companyId, productId])
 
   useEffect(() => {
     const findProduct = availableProducts?.find((el) => el.product.id === productId)
@@ -89,7 +107,7 @@ const WebApp: FC = () => {
       setAvailableQuantity(findProduct?.quantity)
       form.setFieldValue('price', findProduct?.product.selling_price)
     }
-  }, [productId])
+  }, [productId, companyId])
 
   return (
     <div className={styles.container}>
@@ -102,7 +120,7 @@ const WebApp: FC = () => {
         >
           <UiSelect
             value={companyId}
-            onSelect={(e) => setCompanyId(e)}
+            onSelect={(e) => handleSelectCompany(e)}
             options={companyOptions}
             placeholder="Филиал"
           />

@@ -12,6 +12,7 @@ import {
   WebApp,
   Sales,
   Incomes,
+  Refunds,
 } from '@/pages'
 import './App.scss'
 
@@ -27,6 +28,7 @@ const App: FC = () => {
         <Route path="/companies" element={<Companies />} />
         <Route path="/brands" element={<Brands />} />
         <Route path="/storage" element={<Storage />} />
+        <Route path="/refunds" element={<Refunds />} />
       </Route>
       <Route path="/auth" element={<Auth />} />
       <Route path="/webapp" element={<WebApp />} />

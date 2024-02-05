@@ -9,6 +9,7 @@ export const qq = {
     companies: 'Филиаллар',
     brands: 'Брендлар',
     storage: 'Склад',
+    refunds: 'Қайтарылғанлар',
 
     // header
     language: 'Тил',
@@ -78,6 +79,8 @@ export const qq = {
     storageTableCol4: 'Сатып алынған',
     storageTableCol5: 'Сатылған',
     storageTableCol6: 'Қалғаны',
+
+    // refunds page
 
     // shared
     add: 'Қосыў',

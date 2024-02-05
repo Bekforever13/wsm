@@ -38,6 +38,9 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
       case 'companies':
         setCompaniesModal(true)
         break
+      // case 'refunds':
+      //   setRefundsModal(true)
+      //   break
     }
   }
 
@@ -46,7 +49,7 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
       <h1>{title}</h1>
       <div className={styles.wrapper}>
         {(pathname === '/incomes' || pathname === '/sales') && <TransactionsSelect />}
-        {pathname !== '/' && pathname !== '/storage' && (
+        {pathname !== '/' && pathname !== '/storage' && pathname !== '/refunds' && (
           <UiButton onClick={handleClickButton}>{t('add')}</UiButton>
         )}
       </div>

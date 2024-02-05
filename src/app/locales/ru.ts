@@ -9,6 +9,8 @@ export const ru = {
     companies: 'Филиалы',
     brands: 'Бренды',
     storage: 'Склад',
+    refunds: 'Возвраты',
+
 
     // header
     language: 'Язык',
@@ -80,6 +82,12 @@ export const ru = {
     storageTableCol4: 'Куплено',
     storageTableCol5: 'Продано',
     storageTableCol6: 'Остаток',
+
+    // refunds page
+    refundsTableCol1: '',
+    refundsTableCol2: '',
+    refundsTableCol3: '',
+    refundsTableCol4: '',
 
     // shared
     add: 'Добавить',
