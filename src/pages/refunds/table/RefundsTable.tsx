@@ -12,17 +12,17 @@ const RefundsTable: FC = () => {
 
   const columns: ColumnsType<TRefund> = [
     {
-      title: t('productsTableCol2'),
+      title: t('companiesTableCol1'),
       dataIndex: 'product',
       render: (_, rec) => rec.company.name,
     },
     {
-      title: t('productsTableCol3'),
+      title: t('productsTableCol1'),
       dataIndex: 'product',
       render: (_, rec) => rec.product.name,
     },
     {
-      title: t('productsTableCol4'),
+      title: t('transactionsTableCol6'),
       dataIndex: 'date',
     },
   ]
@@ -35,8 +35,7 @@ const RefundsTable: FC = () => {
       pagination={{
         total: 10,
         current: page,
-        showSizeChanger: false,
-        defaultPageSize: 10,
+        showSizeChanger: true,
         onChange: (e) => setPage(e),
       }}
       rowKey={(e) => e.id}

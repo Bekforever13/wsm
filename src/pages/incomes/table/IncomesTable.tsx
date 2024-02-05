@@ -20,6 +20,12 @@ const IncomesTable: FC = () => {
       title: t('transactionsTableCol1'),
       dataIndex: 'product',
       render: (_, rec) => rec.product.name,
+      filters: incomeData?.data?.map((el: TTransactionsIncome) => ({
+        text: el.product.name,
+        value: el.product.name,
+      })),
+      filterSearch: true,
+      onFilter: (el, rec) => rec.product.name.startsWith(el as string),
     },
     {
       title: t('transactionsTableCol3'),
@@ -32,10 +38,23 @@ const IncomesTable: FC = () => {
         }
         return t('credit')
       },
+      filters: [
+        { text: 'Наличка', value: 'cash' },
+        { text: 'Пластик карта', value: 'plastic_card' },
+        { text: 'Кредит', value: 'credit' },
+      ],
+      filterSearch: true,
+      onFilter: (el, rec) => rec.payment_type.name.startsWith(el as string),
     },
     {
       title: t('transactionsTableCol9'),
       dataIndex: 'from_whom',
+      filterSearch: false,
+      filters: incomeData?.data.map((el: TTransactionsIncome) => ({
+        text: el.from_whom,
+        value: el.from_whom,
+      })),
+      onFilter: (el, rec) => rec.from_whom.startsWith(el as string),
     },
     {
       title: t('transactionsTableCol4'),
@@ -64,10 +83,9 @@ const IncomesTable: FC = () => {
         dataSource={incomeData?.data}
         loading={loadingIncome}
         pagination={{
-          total: 1,
+          total: incomeData?.data.length,
           current: page,
-          showSizeChanger: false,
-          defaultPageSize: 10,
+          showSizeChanger: true,
           onChange: (e) => setPage(e),
         }}
         scroll={{ x: true }}

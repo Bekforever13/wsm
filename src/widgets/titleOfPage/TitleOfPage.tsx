@@ -4,7 +4,7 @@ import { UiButton } from '@/components'
 import { TTitleOfPage } from './TitleOfPage.types'
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { BrandStore, CategoriesStore, ProductsStore } from '@/app/store'
+import { CategoriesStore, ProductsStore } from '@/app/store'
 import { TransactionsStore } from '@/app/store/transactionsStore'
 import { CompaniesStore } from '@/app/store/companiesStore'
 import { TransactionsSelect } from './transactions/TransactionsSelect'
@@ -13,7 +13,6 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const { setCategoriesModal } = CategoriesStore()
-  const { setBrandsModal } = BrandStore()
   const { setProductsModal } = ProductsStore()
   const { setTransactionsModalSelling, setTransactionsModalIncome } = TransactionsStore()
   const { setCompaniesModal } = CompaniesStore()
@@ -22,9 +21,6 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
     switch (route) {
       case 'categories':
         setCategoriesModal(true)
-        break
-      case 'brands':
-        setBrandsModal(true)
         break
       case 'products':
         setProductsModal(true)
@@ -38,9 +34,6 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
       case 'companies':
         setCompaniesModal(true)
         break
-      // case 'refunds':
-      //   setRefundsModal(true)
-      //   break
     }
   }
 

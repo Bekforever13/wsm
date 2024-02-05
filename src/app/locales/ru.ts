@@ -7,10 +7,8 @@ export const ru = {
     products: 'Товары',
     categories: 'Категории',
     companies: 'Филиалы',
-    brands: 'Бренды',
     storage: 'Склад',
     refunds: 'Возвраты',
-
 
     // header
     language: 'Язык',
@@ -27,7 +25,7 @@ export const ru = {
     transactionsTableCol6: 'Дата',
     transactionsTableCol7: 'Итого',
     transactionsTableCol8: 'Филиал',
-    transactionsTableCol9: 'Продавец',
+    transactionsTableCol9: 'От кого',
     transactionsMessageRequired1: 'Введите название товара!',
     transactionsMessageRequired2: 'Выберите тип оплаты!',
     transactionsMessageRequired3: 'Выберите тип транзакции!',
@@ -66,14 +64,6 @@ export const ru = {
     categoryMessageCreateSuccess: 'Категория успешно создано!',
     categoryMessageEditSuccess: 'Категория успешно изменено!',
     categoryMessageDeleteSuccess: 'Категория успешно удалено!',
-
-    // brands page
-    brandsTableCol1: 'Название бренда',
-    newBrands: 'Новый бренд',
-    brandsMessageRequired: 'Введите название бренда!',
-    brandsMessageCreateSuccess: 'Бренд успешно создан!',
-    brandsMessageEditSuccess: 'Бренд успешно изменен!',
-    brandsMessageDeleteSuccess: 'Бренд успешно удален!',
 
     // storage page
     storageTableCol1: 'Название товара',

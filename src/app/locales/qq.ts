@@ -7,7 +7,6 @@ export const qq = {
     products: 'Өнимлер',
     categories: 'Тайпалар',
     companies: 'Филиаллар',
-    brands: 'Брендлар',
     storage: 'Склад',
     refunds: 'Қайтарылғанлар',
 
@@ -25,7 +24,7 @@ export const qq = {
     transactionsTableCol5: 'Муғдары',
     transactionsTableCol6: 'Сане',
     transactionsTableCol7: 'Итого',
-    transactionsTableCol9: 'Сатыушы',
+    transactionsTableCol9: 'Кимнен сатып алынды',
     transactionsMessageRequired1: 'Транзакция атын жазың!',
     transactionsMessageRequired2: 'Транзакция түрин сайлаң!',
     transactionsMessageRequired3: 'Транзакция төлеўин сайлаң!',
@@ -63,14 +62,6 @@ export const qq = {
     categoryMessageCreateSuccess: 'Тайпа жаратылды!',
     categoryMessageEditSuccess: 'Тайпа өзгертилди!',
     categoryMessageDeleteSuccess: 'Тайпа өширилди!',
-
-    // brands page
-    brandsTableCol1: 'Бренд аты',
-    newBrands: 'Таза бренд',
-    brandsMessageRequired: 'Бренд атын жазың!',
-    brandsMessageCreateSuccess: 'Бренд жаратылды!',
-    brandsMessageEditSuccess: 'Бренд өзгертилди!',
-    brandsMessageDeleteSuccess: 'Бренд өширилди!',
 
     // storage page
     storageTableCol1: 'Өним аты',

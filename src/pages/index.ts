@@ -1,4 +1,3 @@
-export * from './brands/Brands'
 export * from './categories/Categories'
 export * from './home/Home'
 export * from './products/Products'

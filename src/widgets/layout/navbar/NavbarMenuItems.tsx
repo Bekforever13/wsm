@@ -2,7 +2,7 @@ import { FC } from 'react'
 import styles from './Navbar.module.scss'
 import { FaListUl } from 'react-icons/fa'
 import { AiOutlineHome, AiFillHdd } from 'react-icons/ai'
-import { TbBrandSketch, TbCategory2 } from 'react-icons/tb'
+import { TbCategory2 } from 'react-icons/tb'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FaRegObjectUngroup } from 'react-icons/fa6'
@@ -38,7 +38,6 @@ const NavbarMenuItems: FC = () => {
       icon: <TbCategory2 />,
       label: t('categories'),
     },
-    { pathname: '/brands', icon: <TbBrandSketch />, label: t('brands') },
     { pathname: '/storage', icon: <AiFillHdd />, label: t('storage') },
     { pathname: '/refunds', icon: <HiReceiptRefund />, label: t('refunds') },
   ]

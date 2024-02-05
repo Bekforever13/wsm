@@ -27,8 +27,6 @@ const HeaderBreadCrumbs: React.FC = () => {
                 return t('products')
               case 'Categories':
                 return t('categories')
-              case 'Brands':
-                return t('brands')
               case 'Storage':
                 return t('storage')
               default:

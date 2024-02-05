@@ -5,9 +5,7 @@ import { UiTable } from '@/components/table/UiTable'
 import {
   TProducts,
   useGetProducts,
-  TBrand,
   TCategory,
-  useGetBrands,
   useGetCategories,
   useGetStorage,
   TStorage,
@@ -21,7 +19,6 @@ const StorageTable: FC = () => {
   const { t } = useTranslation()
   const { data: storageData, isLoading } = useGetStorage()
   const { data: categoriesData } = useGetCategories()
-  const { data: brandsData } = useGetBrands()
   const { data: productsData } = useGetProducts()
   const { data: companiesData } = useGetCompanies()
   const [page, setPage] = useState(1)
@@ -68,20 +65,6 @@ const StorageTable: FC = () => {
           ?.name.startsWith(el),
     },
     {
-      title: t('storageTableCol3'),
-      dataIndex: 'brand',
-      render: (_, rec) =>
-        brandsData?.data?.find((el: TBrand) => el.id === rec.product.brand_id)?.name,
-      filters: brandsData?.data?.map((el: TProducts) => ({
-        text: el.name,
-        value: el.name,
-      })),
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (el: unknown, rec) =>
-        brandsData?.data?.find((el: TBrand) => el.id === rec.product.brand_id)?.name.startsWith(el),
-    },
-    {
       title: t('storageTableCol4'),
       dataIndex: 'purchased',
     },
@@ -104,8 +87,7 @@ const StorageTable: FC = () => {
         pagination={{
           total: 10,
           current: page,
-          showSizeChanger: false,
-          defaultPageSize: 10,
+          showSizeChanger: true,
           onChange: (e) => setPage(e),
         }}
         scroll={{ x: true }}

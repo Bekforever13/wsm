@@ -4,21 +4,13 @@ import type { ColumnsType } from 'antd/es/table'
 import { ProductsTableActions } from './ProductsTableActions'
 import { UiTable } from '@/components/table/UiTable'
 import { ProductsModal } from '@/features/modals'
-import {
-  TProducts,
-  TBrand,
-  TCategory,
-  useGetCategories,
-  useGetBrands,
-  useGetProducts,
-} from '@/features/queries'
+import { TProducts, TCategory, useGetCategories, useGetProducts } from '@/features/queries'
 import { formatPrice } from '@/shared/utils/Utils'
 
 const ProductsTable: FC = () => {
   const { t } = useTranslation()
   const [page, setPage] = useState(1)
   const { data: productsData, isLoading } = useGetProducts()
-  const { data: brandsData } = useGetBrands()
   const { data: categoriesData } = useGetCategories()
 
   const columns: ColumnsType<TProducts> = [
@@ -31,12 +23,6 @@ const ProductsTable: FC = () => {
       dataIndex: 'category_id',
       render: (_, rec) =>
         categoriesData?.data.map((cat: TCategory) => (cat.id === rec.category_id ? cat.name : '')),
-    },
-    {
-      title: t('productsTableCol3'),
-      dataIndex: 'brand_id',
-      render: (_, rec) =>
-        brandsData?.data.map((brand: TBrand) => (brand.id === rec.brand_id ? brand.name : '')),
     },
     {
       title: t('productsTableCol4'),
@@ -59,8 +45,7 @@ const ProductsTable: FC = () => {
         pagination={{
           total: productsData?.length,
           current: page,
-          showSizeChanger: false,
-          defaultPageSize: 10,
+          showSizeChanger: true,
           onChange: (e) => setPage(e),
         }}
         rowKey={(e) => e.id}

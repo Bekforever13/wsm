@@ -7,7 +7,6 @@ import { useCreateProduct, useEditProduct } from '@/features/queries/products/pr
 import { TProductsFormData } from '@/features/queries/products/products.types'
 import { UiSelect } from '@/components/select/UiSelect'
 import { useGetCategories } from '@/features/queries/categories/categories.api'
-import { useGetBrands } from '@/features/queries/brands/brands.api'
 import { TCategory } from '@/features/queries/categories/categories.types'
 
 type Options = {
@@ -22,8 +21,6 @@ const ProductsModal: FC = () => {
   const { mutate: createProduct } = useCreateProduct()
   const { mutate: editProduct } = useEditProduct()
   const { data: categoriesData } = useGetCategories()
-  const { data: brandsData } = useGetBrands()
-  const [brandsOptions, setBrandsOptions] = useState<Options[]>([])
   const [categoriesOptions, setCategoriesOptions] = useState<Options[]>([])
 
   const handleClose = () => {
@@ -59,14 +56,6 @@ const ProductsModal: FC = () => {
     }
   }, [categoriesData])
 
-  useEffect(() => {
-    if (brandsData) {
-      brandsData.data.map((el: TCategory) =>
-        setBrandsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
-      )
-    }
-  }, [brandsData])
-
   return (
     <Drawer placement="right" title={t('newProducts')} onClose={handleClose} open={productsModal}>
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -83,13 +72,6 @@ const ProductsModal: FC = () => {
           rules={[{ required: true, message: t('productsMessageRequired2') }]}
         >
           <UiSelect placeholder={t('select')} options={categoriesOptions} />
-        </Form.Item>
-        <Form.Item
-          name="brand_id"
-          label={t('productsTableCol3')}
-          rules={[{ required: true, message: t('productsMessageRequired3') }]}
-        >
-          <UiSelect placeholder={t('select')} options={brandsOptions} />
         </Form.Item>
         <Form.Item
           name="selling_price"

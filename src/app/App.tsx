@@ -5,7 +5,6 @@ import {
   Home,
   Products,
   Categories,
-  Brands,
   Storage,
   Auth,
   Companies,
@@ -26,7 +25,6 @@ const App: FC = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/companies" element={<Companies />} />
-        <Route path="/brands" element={<Brands />} />
         <Route path="/storage" element={<Storage />} />
         <Route path="/refunds" element={<Refunds />} />
       </Route>

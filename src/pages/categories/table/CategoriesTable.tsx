@@ -59,8 +59,7 @@ const CategoriesTable: FC = () => {
         pagination={{
           total: categoriesData?.length,
           current: page,
-          showSizeChanger: false,
-          defaultPageSize: 10,
+          showSizeChanger: true,
           onChange: (e) => setPage(e),
         }}
         rowKey={(e) => e.id}

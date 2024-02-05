@@ -60,8 +60,7 @@ const CompaniesTable: FC = () => {
         pagination={{
           total: companiesData?.length,
           current: page,
-          showSizeChanger: false,
-          defaultPageSize: 10,
+          showSizeChanger: true,
           onChange: (e) => setPage(e),
         }}
         rowKey={(e) => e.id}
