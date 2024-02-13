@@ -8,6 +8,8 @@ import { CategoriesStore, ProductsStore } from '@/app/store'
 import { TransactionsStore } from '@/app/store/transactionsStore'
 import { CompaniesStore } from '@/app/store/companiesStore'
 import { TransactionsSelect } from './transactions/TransactionsSelect'
+import { ClientsStore } from '@/app/store/clientsStore'
+import { PurveyorsStore } from '@/app/store/purveyorsStore'
 
 const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
   const { t } = useTranslation()
@@ -16,6 +18,8 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
   const { setProductsModal } = ProductsStore()
   const { setTransactionsModalSelling, setTransactionsModalIncome } = TransactionsStore()
   const { setCompaniesModal } = CompaniesStore()
+  const { setClientsModal } = ClientsStore()
+  const { setPurveyorsModal } = PurveyorsStore()
 
   const handleClickButton = () => {
     switch (route) {
@@ -33,6 +37,12 @@ const TitleOfPage: FC<TTitleOfPage> = ({ title, route }) => {
         break
       case 'companies':
         setCompaniesModal(true)
+        break
+      case 'clients':
+        setClientsModal(true)
+        break
+      case 'purveyors':
+        setPurveyorsModal(true)
         break
     }
   }

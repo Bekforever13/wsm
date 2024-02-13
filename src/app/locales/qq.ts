@@ -5,6 +5,8 @@ export const qq = {
     incomes: 'Сатып алынғанлар',
     sells: 'Сатылғанлар',
     products: 'Өнимлер',
+    clients: 'Клиентлер',
+    purveyors: 'Поставщиклер',
     categories: 'Тайпалар',
     companies: 'Филиаллар',
     storage: 'Склад',
@@ -13,7 +15,15 @@ export const qq = {
     // header
     language: 'Тил',
 
-    // home page
+    // clients page
+    clientsTableCol1: 'Ф.И.О',
+    clientsTableCol2: 'Телефон',
+    clientsTableCol3: 'Описание',
+    clientsTableCol4: 'Қарызы',
+    newClients: 'Таза клиент',
+    clientMessageCreateSuccess: 'Клиент жаратылды!',
+    clientMessageEditSuccess: 'Клиент өзгертилди!',
+    clientMessageDeleteSuccess: 'Клиент өширилди!',
 
     // transactions page
     newTransactions: 'Таза транзакция',
@@ -87,7 +97,7 @@ export const qq = {
     name: 'Аты',
     cash: 'Нақ пул',
     plastic_card: 'Пластик карта',
-    credit: 'Кредит',
+    credit: 'Қарыз',
     purchased: 'Сатып алынды',
     sales: 'Сатылды',
   },

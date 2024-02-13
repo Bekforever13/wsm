@@ -5,6 +5,8 @@ export const ru = {
     incomes: 'Покупки',
     sells: 'Продажи',
     products: 'Товары',
+    clients: 'Клиенты',
+    purveyors: 'Поставщики',
     categories: 'Категории',
     companies: 'Филиалы',
     storage: 'Склад',
@@ -13,7 +15,15 @@ export const ru = {
     // header
     language: 'Язык',
 
-    // home page
+    // clients page
+    clientsTableCol1: 'Ф.И.О',
+    clientsTableCol2: 'Телефон',
+    clientsTableCol3: 'Описание',
+    clientsTableCol4: 'Долг',
+    newClients: 'Новый клиент',
+    clientMessageCreateSuccess: 'Клиент успешно создан!',
+    clientMessageEditSuccess: 'Клиент успешно изменен!',
+    clientMessageDeleteSuccess: 'Клиент успешно удален!',
 
     // transactions page
     newTransactions: 'Новая транзакция',
@@ -25,7 +35,8 @@ export const ru = {
     transactionsTableCol6: 'Дата',
     transactionsTableCol7: 'Итого',
     transactionsTableCol8: 'Филиал',
-    transactionsTableCol9: 'От кого',
+    transactionsTableCol9: 'Поставщик',
+    transactionsTableCol10: 'Клиент',
     transactionsMessageRequired1: 'Введите название товара!',
     transactionsMessageRequired2: 'Выберите тип оплаты!',
     transactionsMessageRequired3: 'Выберите тип транзакции!',
@@ -34,6 +45,7 @@ export const ru = {
     transactionsMessageRequired6: 'Выберите дату транзакции!',
     transactionsMessageRequired7: 'Количество не должно превышать ',
     transactionsMessageRequired8: 'Выберите филиал!',
+    transactionsMessageRequired10: 'Выберите клиента!',
     transactionsMessageCreateSuccess: 'Транзакция успешно создано!',
     transactionsMessageEditSuccess: 'Транзакция успешно изменено!',
     transactionsMessageDeleteSuccess: 'Транзакция успешно удалено!',
@@ -93,7 +105,7 @@ export const ru = {
     name: 'Название',
     cash: 'Наличка',
     plastic_card: 'Пластиковая карта',
-    credit: 'Кредит',
+    credit: 'Долг',
     purchased: 'Куплено',
     sales: 'Продано',
   },

@@ -12,8 +12,10 @@ import {
   Sales,
   Incomes,
   Refunds,
+  Clients,
 } from '@/pages'
 import './App.scss'
+import { Purveyors } from '@/pages/purveyors/Purveyors'
 
 const App: FC = () => {
   return (
@@ -27,6 +29,8 @@ const App: FC = () => {
         <Route path="/companies" element={<Companies />} />
         <Route path="/storage" element={<Storage />} />
         <Route path="/refunds" element={<Refunds />} />
+        <Route path="/clients" element={<Clients />} />
+        <Route path="/purveyors" element={<Purveyors />} />
       </Route>
       <Route path="/auth" element={<Auth />} />
       <Route path="/webapp" element={<WebApp />} />

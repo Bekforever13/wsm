@@ -8,6 +8,8 @@ import { TTransactionsFormData } from '@/features/queries/transactions/transacti
 import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
 import { useCreateTransactionsSelling, useGetStorage } from '@/features/queries'
+import { useGetClients } from '@/features/queries/clients/clients.api'
+import { TClient } from '@/features/queries/clients/clients.types'
 
 type TOptions = {
   label: string
@@ -20,8 +22,10 @@ const TransactionsSellingModal: FC = () => {
   const { transactionsModalSelling, setTransactionsModalSelling } = TransactionsStore()
   const { mutate: createTransactions } = useCreateTransactionsSelling()
   const { data: companyData, isSuccess: companyDataSuccess } = useGetCompanies()
+  const { data: clientsData } = useGetClients()
   const { data: storageData } = useGetStorage()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
+  const [clientsOptions, setClientsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
   const [productId, setProductId] = useState<number | null>(null)
   const [companyId, setCompanyId] = useState<number | null>(null)
@@ -83,6 +87,14 @@ const TransactionsSellingModal: FC = () => {
     }
   }, [companyId, productId])
 
+  useEffect(() => {
+    if (clientsData) {
+      clientsData.data.map((el: TClient) =>
+        setClientsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
+      )
+    }
+  }, [clientsData])
+
   return (
     <Drawer
       placement="right"
@@ -122,7 +134,15 @@ const TransactionsSellingModal: FC = () => {
         >
           <UiSelect options={paymentOptions} placeholder={t('transactionsTableCol3')} />
         </Form.Item>
-
+        {
+          <Form.Item
+            name="client_id"
+            label={t('transactionsTableCol10')}
+            rules={[{ required: true, message: t('transactionsMessageRequired10') }]}
+          >
+            <UiSelect options={clientsOptions} placeholder={t('transactionsTableCol10')} />
+          </Form.Item>
+        }
         <Form.Item
           name="price"
           label={t('transactionsTableCol4')}

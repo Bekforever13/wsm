@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { UiButton, UiInput } from '@/components'
+import { UiButton, UiInput, UiInputNumber } from '@/components'
 import { DatePicker, Drawer, Form } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useGetProducts } from '@/features/queries/products/products.api'
@@ -11,6 +11,9 @@ import { TProducts } from '@/features/queries/products/products.types'
 import { useGetCompanies } from '@/features/queries/company/companies.api'
 import { TCompany } from '@/features/queries/company/companies.types'
 import { useCreateTransactionsIncome } from '@/features/queries'
+import moment from 'moment'
+import { useGetPurveyors } from '@/features/queries/purveyors/purveyors.api'
+import { TPurveyors } from '@/features/queries/purveyors/purveyors.types'
 
 type TOptions = {
   label: string
@@ -24,8 +27,10 @@ const TransactionsIncomeModal: FC = () => {
   const { mutate: createTransactions } = useCreateTransactionsIncome()
   const { data: productsData } = useGetProducts()
   const { data: companyData } = useGetCompanies()
+  const { data: purveyorsData } = useGetPurveyors()
   const [productsOptions, setProductsOptions] = useState<TOptions[]>([])
   const [companyOptions, setCompanyOptions] = useState<TOptions[]>([])
+  const [purveyorsOptions, setPurveyorsOptions] = useState<TOptions[]>([])
 
   const paymentOptions = [
     { label: t('cash'), value: 1 },
@@ -58,6 +63,14 @@ const TransactionsIncomeModal: FC = () => {
       )
     }
   }, [companyData])
+
+  useEffect(() => {
+    if (purveyorsData) {
+      purveyorsData.data.map((el: TPurveyors) =>
+        setPurveyorsOptions((prev) => [...prev, { value: el.id, label: el.name }]),
+      )
+    }
+  }, [purveyorsData])
 
   return (
     <Drawer
@@ -100,21 +113,24 @@ const TransactionsIncomeModal: FC = () => {
           label={t('transactionsTableCol9')}
           rules={[{ required: true, message: t('transactionsMessageRequired2') }]}
         >
-          <UiInput placeholder={t('transactionsTableCol9')} />
+          <UiSelect options={purveyorsOptions} placeholder={t('transactionsTableCol9')} />
         </Form.Item>
         <Form.Item
           name="quantity"
           label={t('transactionsTableCol5')}
           rules={[{ required: true, message: t('transactionsMessageRequired5') }]}
         >
-          <UiInput type="number" placeholder={t('transactionsTableCol5')} />
+          <UiInputNumber min={1} type="number" placeholder={t('transactionsTableCol5')} />
         </Form.Item>
         <Form.Item
           name="date"
           label={t('transactionsTableCol6')}
           rules={[{ required: true, message: t('transactionsMessageRequired6') }]}
         >
-          <DatePicker showTime />
+          <DatePicker
+            showTime
+            disabledDate={(current) => current && current > moment().endOf('day')}
+          />
         </Form.Item>
         <UiButton>{t('add')}</UiButton>
       </Form>

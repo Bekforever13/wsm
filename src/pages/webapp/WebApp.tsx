@@ -37,7 +37,7 @@ const WebApp: FC = () => {
   const paymentOptions = [
     { label: 'Наличка', value: 1 },
     { label: 'Пластик карта', value: 2 },
-    { label: 'Кредит', value: 3 },
+    { label: 'Долг', value: 3 },
   ]
 
   const handleSelectCompany = (e: number) => {

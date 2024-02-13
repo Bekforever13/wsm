@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styles from './Navbar.module.scss'
-import { FaListUl } from 'react-icons/fa'
+import { FaListUl, FaUsers } from 'react-icons/fa'
 import { AiOutlineHome, AiFillHdd } from 'react-icons/ai'
 import { TbCategory2 } from 'react-icons/tb'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -9,6 +9,7 @@ import { FaRegObjectUngroup } from 'react-icons/fa6'
 import { FiArrowDownLeft } from 'react-icons/fi'
 import { GoArrowUpRight } from 'react-icons/go'
 import { HiReceiptRefund } from 'react-icons/hi'
+import { MdFactory } from 'react-icons/md'
 
 const NavbarMenuItems: FC = () => {
   const { t } = useTranslation()
@@ -26,6 +27,16 @@ const NavbarMenuItems: FC = () => {
       pathname: '/sales',
       icon: <GoArrowUpRight />,
       label: t('sells'),
+    },
+    {
+      pathname: '/clients',
+      icon: <FaUsers />,
+      label: t('clients'),
+    },
+    {
+      pathname: '/purveyors',
+      icon: <MdFactory />,
+      label: t('purveyors'),
     },
     { pathname: '/products', icon: <FaListUl />, label: t('products') },
     {
